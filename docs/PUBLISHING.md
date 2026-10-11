@@ -18,7 +18,7 @@ Tools: `resolve-library-id`, `query-docs`, `list-library-versions`, `search`, `f
 Validate and build the release:
 
     python3 scripts/publishing/package.py --check
-    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.2.zip
+    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.3.zip
 
 Never include API keys, Firebase service secrets, database URLs, or credential files inside a public plugin ZIP. The package builder uses an explicit file allowlist rather than zipping the entire monorepo.
 
@@ -79,3 +79,13 @@ These cannot be asserted or completed by editing source code alone:
 - Cursor publisher application, identity verification and manual approval.
 
 **Never add Claude, OpenAI or Cursor badges implying marketplace approval before an actual listing is published.** Retain a dated release ZIP and Git commit hash for any submission. When tools, privacy policy or package metadata change, follow each platform's rescan or new-version review requirements.
+
+## Review walkthrough
+
+The release includes a 45-second publicly accessible MCP demonstration video,
+recorded from real live responses and rendered without impersonating any
+provider's interface. A reviewer can view it at the
+`review.demo_recording_url` in `plugin.json`. The test capture script
+retrieves only public source citations, result counts, tool status and errors;
+private documents, API keys and account data are deliberately excluded.
+Provider reviewers may still request an additional in-product recording.

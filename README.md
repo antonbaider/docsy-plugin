@@ -62,10 +62,23 @@ With Python 3, run:
 
     python3 scripts/publishing/package.py --check
     python3 -m unittest discover -s scripts/publishing -p 'test_*.py'
-    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.2.zip
+    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.3.zip
 
 For remote MCP and public legal-page smoke tests, run:
 
     node scripts/publishing/mcp-review-smoke.mjs
 
 Directory publication requires identity verification, platform review and approval.
+
+## Marketplace review walkthrough
+
+The [45-second public video](https://github.com/antonbaider/docsy-plugin/releases/download/plugin-v1.0.3/docsy-review-walkthrough-v1.0.3.mp4)
+presents actual public MCP JSON-RPC results for the five read-only tools,
+source URL attribution, invalid requests and safe failures. The presenter is
+a rendered trace, **not a mocked ChatGPT, Claude, or Cursor UI**. Capture and
+render scripts live in `scripts/publishing/`; no credentials or private data
+are used.
+
+Plugin-quality checks run on pushes and PRs. The nightly live health check
+runs all five MCP tools, the invalid-input cases and public legal URLs.
+Full directory approval still requires provider-side verification and review.

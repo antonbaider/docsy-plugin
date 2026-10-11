@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "docsy",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Search current, version-aware developer documentation with original source links through a read-only remote MCP server.",
   "author": {
     "name": "Docsy open-source contributors",
@@ -96,11 +96,12 @@
             }
           ]
         },
-        "commerce": false
+        "commerce": false,
+        "demo_recording_url": "https://github.com/antonbaider/docsy-plugin/releases/download/plugin-v1.0.3/docsy-review-walkthrough-v1.0.3.mp4"
       },
       "onboardingSkill": "./skills/find-docs/SKILL.md",
       "publication": {
-        "release_notes": "v1.0.2: Public read-only MCP documentation discovery, version-aware source-linked retrieval, a find-docs skill, and a public MIT-licensed plugin. Five MCP tools; free anonymous public retrieval with rate limits. No OAuth, private repository access, payments, or write operations."
+        "release_notes": "Docsy Plugin v1.0.3 introduces a reviewer-accessible 45-second walkthrough captured from real public MCP calls, automated package validation and daily live MCP health checks. Supports five read-only tools for official source-linked library documentation; no private repository access, commerce, or write actions."
       }
     }
   }
