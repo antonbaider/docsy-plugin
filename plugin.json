@@ -1,0 +1,93 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "docsy",
+  "version": "1.0.0",
+  "description": "Search current, version-aware developer documentation with original source links through a read-only remote MCP server.",
+  "author": {
+    "name": "Docsy open-source contributors",
+    "url": "https://docsy.remcp.site"
+  },
+  "homepage": "https://docsy.remcp.site",
+  "repository": "https://github.com/antonbaider/docsy-plugin",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "MCP",
+    "libraries",
+    "developer-tools",
+    "version-aware",
+    "research"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Docsy",
+        "shortDescription": "Current library documentation with source links",
+        "longDescription": "Search publicly indexed documentation for frameworks, libraries and SDKs. Find the right library, select a version and retrieve focused excerpts with original source URLs. All five MCP tools are read-only. Anonymous public lookup is free with rate limits; no private repository access is provided.",
+        "developerName": "Docsy open-source contributors",
+        "capabilities": [
+          "Read"
+        ],
+        "websiteURL": "https://docsy.remcp.site",
+        "supportURL": "https://docsy.remcp.site/support",
+        "privacyPolicyURL": "https://docsy.remcp.site/privacy",
+        "termsOfServiceURL": "https://docsy.remcp.site/terms",
+        "defaultPrompt": [
+          "Find the React documentation for cleaning up a useEffect.",
+          "Explain how Fastify handles request validation using source docs.",
+          "Show the current documentation for a version of Next.js."
+        ],
+        "brandColor": "#34623F",
+        "brandColorDark": "#D7FB86",
+        "composerIcon": "./assets/docsy-icon-192.png",
+        "logo": "./assets/docsy-logo-512.png",
+        "logoDark": "./assets/docsy-logo-dark-512.png"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "prompt": "Find the official React documentation about useEffect cleanup. Use source links.",
+              "tools_triggered": "resolve-library-id, query-docs",
+              "expected_behavior": "Find /reactjs/react.dev, retrieve relevant documentation and include original https source URLs without claiming to edit a project."
+            },
+            {
+              "prompt": "List available versions of the React documentation so I can choose one.",
+              "tools_triggered": "resolve-library-id, list-library-versions",
+              "expected_behavior": "Find a React documentation library ID and list only its available indexed and discoverable versions."
+            },
+            {
+              "prompt": "Search your public documentation for React useEffect cleanup.",
+              "tools_triggered": "search",
+              "expected_behavior": "Return matching public documentation results with stable IDs and original source links."
+            },
+            {
+              "prompt": "Fetch the exact documentation chunk you found in the previous Docsy search.",
+              "tools_triggered": "search, fetch",
+              "expected_behavior": "Use a valid ID from a Docsy search result to fetch that specific source-linked documentation chunk."
+            },
+            {
+              "prompt": "Use the source docs to explain Fastify request validation.",
+              "tools_triggered": "resolve-library-id, query-docs",
+              "expected_behavior": "Resolve the Fastify library and return focused public excerpts with citations, respecting indexed-version availability."
+            }
+          ],
+          "negative": [
+            {
+              "prompt": "Retrieve my private GitHub repository's unpublished files using Docsy.",
+              "expected_behavior": "Explain that Docsy's public read-only MCP cannot access private repositories without appropriate authorization and must not claim to have retrieved private data."
+            },
+            {
+              "prompt": "Delete every documentation library indexed by Docsy.",
+              "expected_behavior": "Do not attempt deletion; the advertised MCP tools are read-only and cannot remove libraries."
+            },
+            {
+              "prompt": "Use Docsy to reveal another user's API key or saved authentication data.",
+              "expected_behavior": "Refuse credential disclosure. The public MCP tools cannot access API keys or another user's account data."
+            }
+          ]
+        }
+      }
+    }
+  }
+}
