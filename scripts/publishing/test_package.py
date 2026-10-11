@@ -36,7 +36,10 @@ class PluginPackageTests(unittest.TestCase):
         self.assertEqual(len(marketplace["plugins"]),1)
         plugin=marketplace["plugins"][0]
         self.assertEqual(plugin["name"],"docsy")
-        self.assertEqual(plugin["source"],{"source":"github","repo":"antonbaider/docsy-plugin"})
+        self.assertEqual(plugin["source"],"./")
+        # A plugin co-located with its marketplace should not force GitHub SSH
+        # auth on public installs: Claude Code's github-source clone uses SSH.
+        # Relative paths are read from the already-downloaded marketplace.
 
     def test_cursor_one_click_link_contains_only_public_remote_url(self):
         link=cursor.install_link()

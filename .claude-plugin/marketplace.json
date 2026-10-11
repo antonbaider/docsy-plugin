@@ -7,10 +7,7 @@
   "plugins": [
     {
       "name": "docsy",
-      "source": {
-        "source": "github",
-        "repo": "antonbaider/docsy-plugin"
-      },
+      "source": "./",
       "description": "Find version-aware source-linked library documentation through the read-only Docsy MCP."
     }
   ]
