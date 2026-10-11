@@ -1,0 +1,75 @@
+name: Public plugin quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 7 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-plugin-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    name: Manifest and release packaging
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate package identity and deterministic ZIP
+        run: |
+          set -euo pipefail
+          python3 scripts/publishing/package.py --check
+          python3 -m unittest discover -s scripts/publishing -p 'test_*.py'
+          node --check scripts/publishing/mcp-review-smoke.mjs
+          python3 scripts/publishing/package.py --output "${RUNNER_TEMP}/docsy-plugin.zip"
+          unzip -l "${RUNNER_TEMP}/docsy-plugin.zip"
+          sha256sum "${RUNNER_TEMP}/docsy-plugin.zip"
+      - name: Validate official Agent Plugins schemas
+        run: |
+          python3 -m pip install --disable-pip-version-check 'jsonschema==4.25.1'
+          python3 - <<'PY'
+          import json,urllib.request,jsonschema
+          for name in ('plugin','mcp'):
+              with urllib.request.urlopen(
+                  'https://agent-plugins.org/schemas/1.0.0/'+name+'.schema.json',
+                  timeout=20
+              ) as response:
+                  schema=json.load(response)
+              with open(name+'.json',encoding='utf-8') as f:
+                  manifest=json.load(f)
+              jsonschema.Draft202012Validator(schema).validate(manifest)
+              print(name,'Agent Plugins 1.0.0 schema valid')
+          PY
+      - name: Upload allowlisted package
+        uses: actions/upload-artifact@v4
+        with:
+          name: docsy-plugin-review-package
+          path: ${{ runner.temp }}/docsy-plugin.zip
+          if-no-files-found: error
+          retention-days: 30
+
+  remote-mcp-smoke:
+    name: Public MCP and policy smoke
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify live public MCP and legal pages
+        run: node scripts/publishing/mcp-review-smoke.mjs
