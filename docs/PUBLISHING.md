@@ -18,7 +18,7 @@ Tools: `resolve-library-id`, `query-docs`, `list-library-versions`, `search`, `f
 Validate and build the release:
 
     python3 scripts/publishing/package.py --check
-    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-1.0.0.zip
+    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.1.zip
 
 Never include API keys, Firebase service secrets, database URLs, or credential files inside a public plugin ZIP. The package builder uses an explicit file allowlist rather than zipping the entire monorepo.
 
@@ -51,7 +51,7 @@ Official source: https://claude.com/resources/articles/build-plugins-for-claude
 Anthropic's plugin directory accepts a remote **single MCP connector** or a **GitHub plugin bundle**. Using a paid Claude plan, open the developer submission portal from the Claude directory.
 
 - For the straightforward MCP-only submission, supply `https://docsy.remcp.site/mcp`. Provide real publisher contacts, product description, source links, privacy/terms/support URLs, and a working review demo.
-- For bundled installation, use the publicly accessible Docsy repository; manifests are stored in `.claude-plugin/plugin.json` / `.mcp.json` and the documentation skill is in `skills/find-docs/`. Validate the plugin's exact root and repository URL in the portal before submission.
+- For bundled installation, use the publicly accessible Docsy plugin repository; manifests are stored in `.claude-plugin/plugin.json` / `.mcp.json` and the documentation skill is in `skills/find-docs/`. Validate the plugin's exact root and repository URL in the portal before submission.
 - Claude may audit security and compatibility and does not guarantee inclusion. Review status and analytics appear after submission/approval, where eligible.
 
 ## Cursor Marketplace

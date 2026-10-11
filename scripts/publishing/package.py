@@ -66,7 +66,7 @@ def build(output):
 if __name__=="__main__":
     parser=argparse.ArgumentParser()
     parser.add_argument("--check",action="store_true")
-    parser.add_argument("--output",type=Path,default=Path("/tmp/docsy-plugin-1.0.0.zip"))
+    parser.add_argument("--output",type=Path,default=Path("/tmp/docsy-plugin-v1.0.1.zip"))
     args=parser.parse_args()
     try:
         if args.check:

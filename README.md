@@ -62,7 +62,7 @@ With Python 3, run:
 
     python3 scripts/publishing/package.py --check
     python3 -m unittest discover -s scripts/publishing -p 'test_*.py'
-    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.0.zip
+    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.1.zip
 
 For remote MCP and public legal-page smoke tests, run:
 
