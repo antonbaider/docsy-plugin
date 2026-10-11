@@ -22,7 +22,7 @@
     "com.openai": {
       "interface": {
         "displayName": "Docsy",
-        "shortDescription": "Current library documentation with source links",
+        "shortDescription": "Versioned docs for AI agents",
         "longDescription": "Search publicly indexed documentation for frameworks, libraries and SDKs. Find the right library, select a version and retrieve focused excerpts with original source URLs. All five MCP tools are read-only. Anonymous public lookup is free with rate limits; no private repository access is provided.",
         "developerName": "Docsy open-source contributors",
         "capabilities": [
@@ -41,7 +41,8 @@
         "brandColorDark": "#D7FB86",
         "composerIcon": "./assets/docsy-icon-192.png",
         "logo": "./assets/docsy-logo-512.png",
-        "logoDark": "./assets/docsy-logo-dark-512.png"
+        "logoDark": "./assets/docsy-logo-dark-512.png",
+        "category": "Developer Tools"
       },
       "review": {
         "test_cases": {

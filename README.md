@@ -55,3 +55,17 @@ The plugin configuration, skill and assets in this repository are offered
 under the MIT License; see LICENSE. This repository deliberately does not
 contain Docsy's hosted service backend, private deployment secrets or
 infrastructure. The hosted service is separately maintained.
+
+## Validate and build the submission ZIP
+
+With Python 3, run:
+
+    python3 scripts/publishing/package.py --check
+    python3 -m unittest discover -s scripts/publishing -p 'test_*.py'
+    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.0.zip
+
+For remote MCP and public legal-page smoke tests, run:
+
+    node scripts/publishing/mcp-review-smoke.mjs
+
+Directory publication requires identity verification, platform review and approval.
