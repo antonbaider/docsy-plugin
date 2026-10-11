@@ -21,7 +21,15 @@ claude plugin marketplace add antonbaider/docsy-plugin
 claude plugin install docsy@docsy-community
 ```
 
-For **Cursor**, add this remote server under MCP settings or in
+For **Cursor**, use the documented one-click deep link (opens Cursor
+locally; it does **not** imply Cursor Marketplace approval):
+
+[Add Docsy MCP to Cursor](cursor://anysphere.cursor-deeplink/mcp/install?name=docsy&config=eyJkb2NzeSI6eyJ1cmwiOiJodHRwczovL2RvY3N5LnJlbWNwLnNpdGUvbWNwIn19)
+
+You can regenerate and verify the link with
+`python3 scripts/publishing/cursor_deeplink.py`.
+
+Alternatively, add this remote server under MCP settings or in
 `.cursor/mcp.json`:
 
 ```json

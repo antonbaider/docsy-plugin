@@ -8,6 +8,7 @@ import unittest
 from zipfile import ZipFile
 
 sys.path.insert(0,str(Path(__file__).parent))
+import cursor_deeplink as cursor
 from package import ROOT,FILES,SERVER,build,validate
 
 class PluginPackageTests(unittest.TestCase):
@@ -36,6 +37,12 @@ class PluginPackageTests(unittest.TestCase):
         plugin=marketplace["plugins"][0]
         self.assertEqual(plugin["name"],"docsy")
         self.assertEqual(plugin["source"],{"source":"github","repo":"antonbaider/docsy-plugin"})
+
+    def test_cursor_one_click_link_contains_only_public_remote_url(self):
+        link=cursor.install_link()
+        self.assertTrue(link.startswith("cursor://anysphere.cursor-deeplink/mcp/install?"))
+        self.assertTrue(cursor.verify(link))
+        self.assertNotIn("Bearer",link)
 
     def test_zip_is_deterministic_and_contains_no_repo_secrets_or_sources(self):
         with tempfile.TemporaryDirectory() as folder:
