@@ -12,6 +12,22 @@ require a Docsy API key. Only public indexed documentation is accessible.
 
 ## Install
 
+For **Claude Code**, Docsy now provides an independent, user-installable
+community marketplace. These commands install the open-source package but do
+**not** imply an official Anthropic directory listing:
+
+```sh
+claude plugin marketplace add antonbaider/docsy-plugin
+claude plugin install docsy@docsy-community
+```
+
+For **Cursor**, add this remote server under MCP settings or in
+`.cursor/mcp.json`:
+
+```json
+{"mcpServers":{"docsy":{"url":"https://docsy.remcp.site/mcp"}}}
+```
+
 - **Claude Code**: import this repository as a plugin, or add the public
   remote MCP server URL above. Root .claude-plugin/plugin.json and .mcp.json
   are included for Claude Code compatibility.
@@ -82,3 +98,7 @@ are used.
 Plugin-quality checks run on pushes and PRs. The nightly live health check
 runs all five MCP tools, the invalid-input cases and public legal URLs.
 Full directory approval still requires provider-side verification and review.
+
+### Submission evidence
+
+The [public reviewer demo and security annotation explanations](docs/REVIEW-EVIDENCE.md) describe nine real MCP checks, including failure scenarios. The video is an annotated display of captured JSON-RPC tool results, not a claim that Docsy is already listed in ChatGPT, Claude or Cursor.

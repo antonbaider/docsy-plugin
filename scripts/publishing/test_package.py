@@ -29,6 +29,14 @@ class PluginPackageTests(unittest.TestCase):
         self.assertEqual(json.loads((ROOT/"mcp.json").read_text())["mcpServers"]["docsy"]["url"],SERVER)
         self.assertEqual(json.loads((ROOT/".mcp.json").read_text())["mcpServers"]["docsy"]["type"],"http")
 
+    def test_public_claude_marketplace_can_reference_plugin(self):
+        marketplace=json.loads((ROOT/".claude-plugin/marketplace.json").read_text())
+        self.assertEqual(marketplace["name"],"docsy-community")
+        self.assertEqual(len(marketplace["plugins"]),1)
+        plugin=marketplace["plugins"][0]
+        self.assertEqual(plugin["name"],"docsy")
+        self.assertEqual(plugin["source"],{"source":"github","repo":"antonbaider/docsy-plugin"})
+
     def test_zip_is_deterministic_and_contains_no_repo_secrets_or_sources(self):
         with tempfile.TemporaryDirectory() as folder:
             a=Path(folder)/"first.zip"
