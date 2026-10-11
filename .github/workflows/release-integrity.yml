@@ -1,0 +1,40 @@
+name: Verify published plugin release
+on:
+  release:
+    types: [published]
+permissions:
+  contents: read
+jobs:
+  verify-assets:
+    name: Git tag equals downloadable ZIP, recording exists
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact release tag
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Build candidate from tagged sources
+        run: |
+          python3 scripts/publishing/package.py --check
+          python3 -m unittest discover -s scripts/publishing -p 'test_*.py'
+          python3 scripts/publishing/package.py --output "${RUNNER_TEMP}/built.zip"
+      - name: Download public release assets and require byte-for-byte equality
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF_NAME}"
+          test "${tag#plugin-v}" != "${tag}"
+          version="${tag#plugin-}"
+          export EXPECTED_VERSION="${version#v}"
+          python3 -c 'import os,json; assert json.load(open("plugin.json"))["version"]==os.environ["EXPECTED_VERSION"], "Tag version differs from manifest"'
+          zip_name="docsy-plugin-${version}.zip"
+          video_name="docsy-review-walkthrough-${version}.mp4"
+          mkdir -p "${RUNNER_TEMP}/published"
+          gh release download "${tag}" --repo "${GITHUB_REPOSITORY}" \
+            --dir "${RUNNER_TEMP}/published"
+          cmp "${RUNNER_TEMP}/built.zip" "${RUNNER_TEMP}/published/${zip_name}"
+          test -s "${RUNNER_TEMP}/published/${video_name}"
+          file "${RUNNER_TEMP}/published/${video_name}" | grep -E 'ISO Media|MP4'
+          sha256sum "${RUNNER_TEMP}/published/${zip_name}" \
+            "${RUNNER_TEMP}/published/${video_name}"
+          echo "Verified: published plugin ZIP is byte-identical to release tag."

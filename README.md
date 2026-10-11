@@ -86,7 +86,7 @@ With Python 3, run:
 
     python3 scripts/publishing/package.py --check
     python3 -m unittest discover -s scripts/publishing -p 'test_*.py'
-    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.3.zip
+    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.4.zip
 
 For remote MCP and public legal-page smoke tests, run:
 
@@ -96,7 +96,7 @@ Directory publication requires identity verification, platform review and approv
 
 ## Marketplace review walkthrough
 
-The [45-second public video](https://github.com/antonbaider/docsy-plugin/releases/download/plugin-v1.0.3/docsy-review-walkthrough-v1.0.3.mp4)
+The [45-second public video](https://github.com/antonbaider/docsy-plugin/releases/download/plugin-v1.0.4/docsy-review-walkthrough-v1.0.4.mp4)
 presents actual public MCP JSON-RPC results for the five read-only tools,
 source URL attribution, invalid requests and safe failures. The presenter is
 a rendered trace, **not a mocked ChatGPT, Claude, or Cursor UI**. Capture and
@@ -107,6 +107,13 @@ Plugin-quality checks run on pushes and PRs. The nightly live health check
 runs all five MCP tools, the invalid-input cases and public legal URLs.
 Full directory approval still requires provider-side verification and review.
 
-### Submission evidence
+## Reviewer evidence and integrity
 
-The [public reviewer demo and security annotation explanations](docs/REVIEW-EVIDENCE.md) describe nine real MCP checks, including failure scenarios. The video is an annotated display of captured JSON-RPC tool results, not a claim that Docsy is already listed in ChatGPT, Claude or Cursor.
+The [review evidence guide](docs/REVIEW-EVIDENCE.md) documents nine real MCP
+checks, annotation rationale, safe failures, third-party source links and
+remaining platform approvals. The video shows real JSON-RPC responses, not
+a ChatGPT/Claude/Cursor product interface or marketplace approval.
+
+The v1.0.4 release ZIP must be reproducible from its exact Git tag; the
+release-integrity workflow compares the published asset byte-for-byte.
+Version 1.0.3 is superseded because its uploaded ZIP did not match its tag.
