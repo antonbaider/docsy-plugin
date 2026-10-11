@@ -42,6 +42,10 @@ def validate():
     assert len(review["positive"])==5 and len(review["negative"])==3
     assert all(row.get("description") and len(row["description"])<=4000 for row in review["positive"]+review["negative"])
     assert plugin["extensions"]["com.openai"]["publication"]["release_notes"].strip()
+    demo=plugin["extensions"]["com.openai"]["review"].get("demo_recording_url")
+    assert isinstance(demo,str) and demo.startswith(
+        "https://github.com/antonbaider/docsy-plugin/releases/download/"
+    ) and demo.endswith(".mp4"), "public review video URL required"
     assert plugin["extensions"]["com.openai"].get("onboardingSkill")=="./skills/find-docs/SKILL.md"
     assert all(row.get("prompt") and row.get("tools_triggered") and row.get("expected_behavior") for row in review["positive"])
     assert all(row.get("prompt") and row.get("expected_behavior") for row in review["negative"])

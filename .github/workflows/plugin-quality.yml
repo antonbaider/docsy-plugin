@@ -34,6 +34,8 @@ jobs:
           python3 scripts/publishing/package.py --check
           python3 -m unittest discover -s scripts/publishing -p 'test_*.py'
           node --check scripts/publishing/mcp-review-smoke.mjs
+          node --check scripts/publishing/review-demo-data.mjs
+          python3 -m py_compile scripts/publishing/render-review-demo.py
           python3 scripts/publishing/package.py --output "${RUNNER_TEMP}/docsy-plugin.zip"
           unzip -l "${RUNNER_TEMP}/docsy-plugin.zip"
           sha256sum "${RUNNER_TEMP}/docsy-plugin.zip"

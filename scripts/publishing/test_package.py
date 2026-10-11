@@ -15,6 +15,14 @@ class PluginPackageTests(unittest.TestCase):
         plugin=validate()
         self.assertEqual(plugin["name"],"docsy")
         self.assertEqual(plugin["license"],"MIT")
+        self.assertEqual(plugin["version"],"1.0.3")
+        review=plugin["extensions"]["com.openai"]["review"]
+        self.assertEqual(len(review["test_cases"]["positive"]),5)
+        self.assertEqual(len(review["test_cases"]["negative"]),3)
+        self.assertIn("plugin-v1.0.3",review["demo_recording_url"])
+        self.assertTrue(review["demo_recording_url"].endswith(".mp4"))
+        self.assertTrue(plugin["extensions"]["com.openai"]["publication"]["release_notes"])
+
         interface=plugin["extensions"]["com.openai"]["interface"]
         for key in ["websiteURL","supportURL","privacyPolicyURL","termsOfServiceURL"]:
             self.assertTrue(interface[key].startswith("https://docsy.remcp.site"))
