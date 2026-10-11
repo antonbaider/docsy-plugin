@@ -37,13 +37,15 @@ Alternatively, add this remote server under MCP settings or in
 ```
 
 - **Claude Code**: install from the community marketplace:
-  
-      claude plugin marketplace add https://github.com/antonbaider/docsy-plugin
-      claude plugin install docsy@docsy-community
 
-  The marketplace references the co-located plugin by a relative path; no
-  GitHub SSH key is required. Alternatively configure the public remote MCP.
-  Root .claude-plugin/plugin.json and .mcp.json are included.
+  ```sh
+  claude plugin marketplace add https://github.com/antonbaider/docsy-plugin
+  claude plugin install docsy@docsy-community
+  ```
+
+  The marketplace references the co-located plugin by a relative path, so
+  no GitHub SSH key is required. Alternatively configure the public remote MCP.
+  Root `.claude-plugin/plugin.json` and `.mcp.json` are included.
 - **Cursor**: use the Agent Plugins 1.0.0 package from this repository or
   add the remote server in Cursor MCP settings. mcp.json contains the same
   remote endpoint.
