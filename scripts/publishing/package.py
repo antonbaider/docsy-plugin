@@ -28,6 +28,10 @@ def validate():
     assert server["type"]=="streamable-http" and server["url"]==SERVER
     interface=plugin["extensions"]["com.openai"]["interface"]
     assert interface["displayName"]=="Docsy"
+    assert len(interface["displayName"])<=30
+    assert 0<len(interface["shortDescription"])<=30
+    assert interface["category"]=="Developer Tools"
+    assert plugin["author"]["name"]==interface["developerName"]
     for key in FIELDS:
         assert interface[key].startswith("https://docsy.remcp.site/") or (
             key=="websiteURL" and interface[key]=="https://docsy.remcp.site"
@@ -36,6 +40,9 @@ def validate():
         assert interface[key].lstrip("./") in ASSETS
     review=plugin["extensions"]["com.openai"]["review"]["test_cases"]
     assert len(review["positive"])==5 and len(review["negative"])==3
+    assert all(row.get("description") and len(row["description"])<=4000 for row in review["positive"]+review["negative"])
+    assert plugin["extensions"]["com.openai"]["publication"]["release_notes"].strip()
+    assert plugin["extensions"]["com.openai"].get("onboardingSkill")=="./skills/find-docs/SKILL.md"
     assert all(row.get("prompt") and row.get("tools_triggered") and row.get("expected_behavior") for row in review["positive"])
     assert all(row.get("prompt") and row.get("expected_behavior") for row in review["negative"])
     toolset={"resolve-library-id","query-docs","list-library-versions","search","fetch"}
@@ -66,15 +73,16 @@ def build(output):
 if __name__=="__main__":
     parser=argparse.ArgumentParser()
     parser.add_argument("--check",action="store_true")
-    parser.add_argument("--output",type=Path,default=Path("/tmp/docsy-plugin-v1.0.1.zip"))
+    parser.add_argument("--output",type=Path,default=None)
     args=parser.parse_args()
     try:
         if args.check:
             plugin=validate()
             print("Plugin metadata valid:",plugin["name"],plugin["version"],"files",len(FILES))
         else:
-            checksum=build(args.output)
-            print("Created",args.output,"SHA256",checksum)
+            output=args.output or Path("/tmp/docsy-plugin-"+validate()["version"]+".zip")
+            checksum=build(output)
+            print("Created",output,"SHA256",checksum)
     except (KeyError,AssertionError,ValueError,IndexError,TypeError) as error:
         print("Plugin validation failed:",str(error),file=sys.stderr)
         sys.exit(1)
