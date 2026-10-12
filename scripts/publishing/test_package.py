@@ -16,11 +16,14 @@ class PluginPackageTests(unittest.TestCase):
         plugin=validate()
         self.assertEqual(plugin["name"],"docsy")
         self.assertEqual(plugin["license"],"MIT")
-        self.assertEqual(plugin["version"],"1.0.4")
+        self.assertEqual(plugin["version"],"1.0.5")
+        self.assertEqual(plugin["author"]["name"],"Anton Baider")
+        self.assertEqual(plugin["extensions"]["com.openai"]["interface"]["developerName"],"Anton Baider")
+        self.assertNotIn("free",plugin["extensions"]["com.openai"]["interface"]["longDescription"].lower())
         review=plugin["extensions"]["com.openai"]["review"]
         self.assertEqual(len(review["test_cases"]["positive"]),5)
         self.assertEqual(len(review["test_cases"]["negative"]),3)
-        self.assertIn("plugin-v1.0.4",review["demo_recording_url"])
+        self.assertIn("plugin-v1.0.5",review["demo_recording_url"])
         self.assertTrue(review["demo_recording_url"].endswith(".mp4"))
         self.assertTrue(plugin["extensions"]["com.openai"]["publication"]["release_notes"])
 

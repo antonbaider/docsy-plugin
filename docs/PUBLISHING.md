@@ -18,7 +18,7 @@ Tools: `resolve-library-id`, `query-docs`, `list-library-versions`, `search`, `f
 Validate and build the release:
 
     python3 scripts/publishing/package.py --check
-    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.4.zip
+    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.5.zip
 
 Never include API keys, Firebase service secrets, database URLs, or credential files inside a public plugin ZIP. The package builder uses an explicit file allowlist rather than zipping the entire monorepo.
 
