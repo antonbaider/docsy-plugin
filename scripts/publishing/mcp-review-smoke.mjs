@@ -3,9 +3,14 @@ const base=(process.env.DOCSY_PUBLIC_URL??"https://docsy.remcp.site").replace(/\
 const skipLegal=process.argv.includes("--skip-public-pages");
 const headers={
   "content-type":"application/json",
-  "accept":"application/json, text/event-stream",
-  "MCP-Protocol-Version":"2025-11-25"
+  "accept":"application/json, text/event-stream"
 };
+// The HTTP protocol version header must match the version negotiated by
+// initialize, not the client's preferred version.
+let negotiatedVersion=null;
+const requestHeaders=()=>negotiatedVersion
+  ?{...headers,"MCP-Protocol-Version":negotiatedVersion}
+  :headers;
 let calls=0;
 const assert=(ok,message)=>{if(!ok)throw new Error(message);};
 const timeout=ms=>AbortSignal.timeout(ms);
@@ -20,7 +25,7 @@ function parseRpc(body,id){
 async function rpc(method,params={},ms=40_000){
   const id=++calls;
   const response=await fetch(base+"/mcp",{
-    method:"POST",headers,
+    method:"POST",headers:requestHeaders(),
     body:JSON.stringify({jsonrpc:"2.0",id,method,params}),signal:timeout(ms)
   });
   assert(response.ok,"MCP "+method+" returned HTTP "+response.status);
@@ -36,6 +41,15 @@ const init=await rpc("initialize",{
   clientInfo:{name:"docsy-directory-review-smoke",version:"1.0.0"}
 });
 assert(init.serverInfo?.name==="Docsy","MCP returned unexpected server name");
+assert(["2025-06-18","2025-11-25"].includes(init.protocolVersion),
+  "MCP negotiated unsupported protocol version: "+init.protocolVersion);
+negotiatedVersion=init.protocolVersion;
+const initialized=await fetch(base+"/mcp",{
+  method:"POST",headers:requestHeaders(),
+  body:JSON.stringify({jsonrpc:"2.0",method:"notifications/initialized"}),
+  signal:timeout(15_000)
+});
+assert(initialized.status===202,"MCP initialized notification returned HTTP "+initialized.status);
 const listed=await rpc("tools/list");
 const names=["resolve-library-id","query-docs","list-library-versions","search","fetch"];
 assert((listed.tools??[]).length===5,"Public Docsy MCP tool count must stay exactly five");
@@ -95,7 +109,7 @@ for(const invalid of [
 ]){
   const id=++calls;
   const response=await fetch(base+"/mcp",{
-    method:"POST",headers,
+    method:"POST",headers:requestHeaders(),
     body:JSON.stringify({jsonrpc:"2.0",id,method:"tools/call",params:{name:invalid.name,arguments:invalid.args}}),
     signal:timeout(15_000)
   });
