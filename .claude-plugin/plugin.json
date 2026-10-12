@@ -1,9 +1,9 @@
 {
   "name": "docsy",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Current, source-linked and version-aware library documentation through Docsy MCP.",
   "author": {
-    "name": "Docsy open-source contributors",
+    "name": "Anton Baider",
     "url": "https://docsy.remcp.site"
   },
   "homepage": "https://docsy.remcp.site",

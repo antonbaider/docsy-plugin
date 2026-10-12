@@ -1,10 +1,10 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "docsy",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Search current, version-aware developer documentation with original source links through a read-only remote MCP server.",
   "author": {
-    "name": "Docsy open-source contributors",
+    "name": "Anton Baider",
     "url": "https://docsy.remcp.site"
   },
   "homepage": "https://docsy.remcp.site",
@@ -23,8 +23,8 @@
       "interface": {
         "displayName": "Docsy",
         "shortDescription": "Versioned docs for AI agents",
-        "longDescription": "Search publicly indexed documentation for frameworks, libraries and SDKs. Find the right library, select a version and retrieve focused excerpts with original source URLs. All five MCP tools are read-only. Anonymous public lookup is free with rate limits; no private repository access is provided.",
-        "developerName": "Docsy open-source contributors",
+        "longDescription": "Search publicly indexed documentation for frameworks, libraries and SDKs. Resolve a library, choose an available version, and retrieve focused excerpts with original source URLs. All five public MCP tools expose documentation retrieval; private repository access is not provided.",
+        "developerName": "Anton Baider",
         "capabilities": [
           "Read"
         ],
@@ -97,11 +97,11 @@
           ]
         },
         "commerce": false,
-        "demo_recording_url": "https://github.com/antonbaider/docsy-plugin/releases/download/plugin-v1.0.4/docsy-review-walkthrough-v1.0.4.mp4"
+        "demo_recording_url": "https://github.com/antonbaider/docsy-plugin/releases/download/plugin-v1.0.5/docsy-review-walkthrough-v1.0.5.mp4"
       },
       "onboardingSkill": "./skills/find-docs/SKILL.md",
       "publication": {
-        "release_notes": "v1.0.4: Verifiable and reproducible marketplace package, linked real MCP review walkthrough, public reviewer evidence, and daily MCP readiness checks. Supersedes the non-reproducible v1.0.3 ZIP. Five source-linked read-only tools; no private repository access or write operations."
+        "release_notes": "v1.0.5: Verified individual publisher identity and factual, non-promotional directory description; validated HTTPS public MCP with five source-linked documentation tools. This review package supersedes v1.0.4."
       }
     }
   }
