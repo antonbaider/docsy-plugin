@@ -45,6 +45,13 @@ for(const name of names){
   assert(def.annotations?.readOnlyHint===true,
     "MCP review requires correct readOnlyHint for "+name);
   assert(def.annotations?.destructiveHint===false,"MCP tool must not be destructive: "+name);
+  // OpenAI's public MCP tool scan inspects all three safety hints. A public
+  // documentation corpus reaches an open world of external sources even
+  // though these advertised operations cannot mutate a user's account.
+  assert(def.annotations?.openWorldHint===true,
+    "MCP tool must disclose open-world public-documentation access: "+name);
+  assert(def.annotations?.idempotentHint===true,
+    "Public documentation retrieval should remain idempotent: "+name);
   assert(typeof def.description==="string"&&def.description.length>35,"Weak tool description: "+name);
   assert(def.inputSchema?.type==="object","Tool must define object input schema: "+name);
 }

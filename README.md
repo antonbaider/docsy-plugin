@@ -36,19 +36,13 @@ Alternatively, add this remote server under MCP settings or in
 {"mcpServers":{"docsy":{"url":"https://docsy.remcp.site/mcp"}}}
 ```
 
-- **Claude Code**: install from the community marketplace:
-
-  ```sh
-  claude plugin marketplace add https://github.com/antonbaider/docsy-plugin
-  claude plugin install docsy@docsy-community
-  ```
-
-  The marketplace references the co-located plugin by a relative path, so
-  no GitHub SSH key is required. Alternatively configure the public remote MCP.
-  Root `.claude-plugin/plugin.json` and `.mcp.json` are included.
-- **Cursor**: use the Agent Plugins 1.0.0 package from this repository or
-  add the remote server in Cursor MCP settings. mcp.json contains the same
-  remote endpoint.
+- **Claude Code**: the community marketplace commands above work with the
+  public HTTPS source and do not require GitHub SSH keys. Its manifest
+  references the co-located plugin by a relative path. Root
+  `.claude-plugin/plugin.json` and `.mcp.json` are included.
+- **Cursor**: use the one-click link above, the Agent Plugins 1.0.0 package,
+  or the remote endpoint in Cursor MCP settings. `mcp.json` points to the
+  same public endpoint.
 - **ChatGPT / OpenAI Plugins**: use the reviewed plugin ZIP attached to this
   repository's Release; upload it using the official Plugins submission
   portal under **With MCP**.
