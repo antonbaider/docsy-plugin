@@ -33,6 +33,16 @@ class PluginPackageTests(unittest.TestCase):
         self.assertEqual(json.loads((ROOT/"mcp.json").read_text())["mcpServers"]["docsy"]["url"],SERVER)
         self.assertEqual(json.loads((ROOT/".mcp.json").read_text())["mcpServers"]["docsy"]["type"],"http")
 
+    def test_official_mcp_registry_has_owned_remote_and_no_unpublished_package(self):
+        plugin=json.loads((ROOT/"plugin.json").read_text())
+        registry=json.loads((ROOT/"server.json").read_text())
+        self.assertEqual(registry["name"],"io.github.antonbaider/docsy")
+        self.assertEqual(registry["version"],plugin["version"])
+        self.assertEqual(registry["title"],"Docsy")
+        self.assertEqual(registry["repository"]["url"],"https://github.com/antonbaider/docsy-plugin")
+        self.assertEqual(registry["remotes"],[{"type":"streamable-http","url":SERVER}])
+        self.assertNotIn("packages",registry)
+
     def test_public_claude_marketplace_can_reference_plugin(self):
         marketplace=json.loads((ROOT/".claude-plugin/marketplace.json").read_text())
         self.assertEqual(marketplace["name"],"docsy-community")

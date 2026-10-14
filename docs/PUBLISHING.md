@@ -89,3 +89,10 @@ provider's interface. A reviewer can view it at the
 retrieves only public source citations, result counts, tool status and errors;
 private documents, API keys and account data are deliberately excluded.
 Provider reviewers may still request an additional in-product recording.
+
+
+## Official MCP Registry (remote server)
+
+`server.json` is a dedicated manifest for the official MCP Registry in the GitHub-owned namespace `io.github.antonbaider/docsy`. The only transport is the publicly reachable Streamable HTTP endpoint, `https://docsy.remcp.site/mcp`; no unpublished npm package is listed.
+
+Run **Publish Docsy MCP Registry** from GitHub Actions on `main` to validate and publish with GitHub-hosted OIDC. The publisher CLI v1.8.1 is downloaded from the official registry release and verified by pinned SHA-256. No personal access token or long-lived secret is used. Publication must be confirmed from the workflow result and registry response; a prepared manifest alone is not a listing.
