@@ -45,7 +45,7 @@ def validate():
     demo=plugin["extensions"]["com.openai"]["review"].get("demo_recording_url")
     assert (
         isinstance(demo,str) and demo.startswith(
-            "https://github.com/antonbaider/docsy-plugin/releases/download/"
+            "https://github.com/getremcp/docsy-plugin/releases/download/"
         ) and demo.endswith(".mp4") and
         ("/plugin-v"+plugin["version"]+"/") in demo
     ), "version-matched public review video URL required"
