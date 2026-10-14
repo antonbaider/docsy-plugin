@@ -94,7 +94,7 @@ def render(scene,index,count,captured):
     # Lower separator/footer
     d.line((49,636,1230,636),fill=LINE,width=1)
     d.text((52,659),scene["caption"],font=font(15),fill=INK)
-    d.text((52,685),"DATA: "+captured[:10]+"  ·  https://docsy.remcp.site/mcp",font=font(10,False,True),fill=MUTED)
+    d.text((52,685),"DATA: "+captured[:10]+"  ·  https://docsy.remcp.site/mcp/registry",font=font(10,False,True),fill=MUTED)
     d.text((1073,658),f"STEP {index+1:02d} / {count:02d}",font=font(14,True,True),fill=ACCENT)
     # bounded progress
     d.rectangle((0,H-4,int(W*(index+1)/count),H),fill=ACCENT)
