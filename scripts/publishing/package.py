@@ -15,7 +15,7 @@ ASSETS=[
     "assets/docsy-logo-dark-512.png"
 ]
 FILES=["plugin.json","mcp.json","skills/find-docs/SKILL.md",*ASSETS]
-SERVER="https://docsy.remcp.site/mcp"
+SERVER="https://docsy.remcp.site/mcp/registry"
 FIELDS=["websiteURL","privacyPolicyURL","termsOfServiceURL","supportURL"]
 
 def validate():

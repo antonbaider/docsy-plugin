@@ -4,7 +4,7 @@ Open-source plugin for current, source-linked developer documentation in
 **Claude, OpenAI/ChatGPT/Codex and Cursor**. It connects to the hosted
 read-only Streamable HTTP MCP endpoint:
 
-    https://docsy.remcp.site/mcp
+    https://docsy.remcp.site/mcp/registry
 
 The five public tools are resolve-library-id, query-docs,
 list-library-versions, search and fetch. Anonymous public lookups do not
@@ -14,7 +14,7 @@ require a Docsy API key. Only public indexed documentation is accessible.
 
 ## Verified public MCP registry listings
 
-Docsy **1.0.5** is published as an active remote server in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=getremcp), registered as `io.github.getremcp/docsy`. The record references the organizational Streamable HTTP endpoint, `https://docsy.remcp.site/mcp/registry`, and this GitHub repository.
+Docsy **1.0.6** is published as an active remote server in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=getremcp), registered as `io.github.getremcp/docsy`. The record references the organizational Streamable HTTP endpoint, `https://docsy.remcp.site/mcp/registry`, and this GitHub repository.
 
 It is also available from the [Docsy listing on Smithery](https://smithery.ai/servers/getremcp/docsy), under `getremcp/docsy`. The Smithery publishing service accepted the release and discovered five MCP tools; directory health may be updated asynchronously.
 
@@ -29,7 +29,7 @@ claude plugin marketplace add getremcp/docsy-plugin
 claude plugin install docsy@docsy-community
 ```
 
-For other MCP clients, use the remote endpoint `https://docsy.remcp.site/mcp`. The official registry manifest is kept in [`server.json`](server.json).
+For other MCP clients, use the remote endpoint `https://docsy.remcp.site/mcp/registry`. The official registry manifest is kept in [`server.json`](server.json).
 
 ### Use Docsy in ChatGPT Work before public directory approval
 
@@ -76,7 +76,7 @@ mean it has been executed. Cursor supports equivalent user-level
 For **Cursor**, use the documented one-click deep link (opens Cursor
 locally; it does **not** imply Cursor Marketplace approval):
 
-[Add Docsy MCP to Cursor](cursor://anysphere.cursor-deeplink/mcp/install?name=docsy&config=eyJkb2NzeSI6eyJ1cmwiOiJodHRwczovL2RvY3N5LnJlbWNwLnNpdGUvbWNwIn19)
+[Add Docsy MCP to Cursor](cursor://anysphere.cursor-deeplink/mcp/install?name=docsy&config=eyJkb2NzeSI6eyJ1cmwiOiJodHRwczovL2RvY3N5LnJlbWNwLnNpdGUvbWNwL3JlZ2lzdHJ5In19)
 
 You can regenerate and verify the link with
 `python3 scripts/publishing/cursor_deeplink.py`.
@@ -85,7 +85,7 @@ Alternatively, add this remote server under MCP settings or in
 `.cursor/mcp.json`:
 
 ```json
-{"mcpServers":{"docsy":{"url":"https://docsy.remcp.site/mcp"}}}
+{"mcpServers":{"docsy":{"url":"https://docsy.remcp.site/mcp/registry"}}}
 ```
 
 - **Claude Code**: the community marketplace commands above work with the
@@ -139,7 +139,7 @@ With Python 3, run:
 
     python3 scripts/publishing/package.py --check
     python3 -m unittest discover -s scripts/publishing -p 'test_*.py'
-    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.5.zip
+    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.6.zip
 
 For remote MCP and public legal-page smoke tests, run:
 
@@ -149,7 +149,7 @@ Directory publication requires identity verification, platform review and approv
 
 ## Marketplace review walkthrough
 
-The [45-second public video](https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.5/docsy-review-walkthrough-v1.0.5.mp4)
+The [45-second public video](https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.6/docsy-review-walkthrough-v1.0.6.mp4)
 presents actual public MCP JSON-RPC results for the five read-only tools,
 source URL attribution, invalid requests and safe failures. The presenter is
 a rendered trace, **not a mocked ChatGPT, Claude, or Cursor UI**. Capture and

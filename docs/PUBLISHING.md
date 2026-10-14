@@ -119,3 +119,7 @@ The organization-owned official MCP Registry listing **`io.github.getremcp/docsy
 Smithery also accepted `getremcp/docsy` as an external MCP release. The organization-specific public listing is [smithery.ai/servers/getremcp/docsy](https://smithery.ai/servers/getremcp/docsy); its initial deployment ID was `0c8e292e-147c-49eb-9666-1ad22297e80a`. The older `antonbaider/docsy` listing remains available for compatibility.
 
 These public MCP directory publications do not imply approval by the OpenAI, Claude or Cursor official plugin marketplaces.
+
+## v1.0.6 organizational release (October 14, 2026)
+
+The canonical public client transport for the new release is `https://docsy.remcp.site/mcp/registry`, owned by organizational registry entry `io.github.getremcp/docsy`. The legacy `/mcp` endpoint remains active to avoid breaking existing installations. The release should include a deterministic ZIP and a real-response review video, both generated from its immutable `plugin-v1.0.6` tag; successful release-integrity CI and MCP Registry OIDC publication must be verified before announcing it.

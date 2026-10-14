@@ -10,7 +10,7 @@ const headers={'Content-Type':'application/json','Accept':'application/json, tex
 const assert=(ok,message)=>{if(!ok)throw Error(message)};
 async function rpc(method,params={},allowError=false){
   const callId=++id;
-  const response=await fetch(base+'/mcp',{method:'POST',headers,
+  const response=await fetch(base+'/mcp/registry',{method:'POST',headers,
     body:JSON.stringify({jsonrpc:'2.0',id:callId,method,params}),
     signal:AbortSignal.timeout(45000)});
   const raw=await response.text();
@@ -37,7 +37,7 @@ const init=(await rpc('initialize',{protocolVersion:'2025-11-25',capabilities:{}
 const defs=(await rpc('tools/list')).result.tools;
 assert(init.serverInfo?.name==='Docsy' && defs.length===5,'unexpected MCP contract');
 assert(defs.every(t=>t.annotations?.readOnlyHint===true),'tools must be read-only');
-add('01 / CONNECTION','Remote MCP verified','POST '+base+'/mcp',
+add('01 / CONNECTION','Remote MCP verified','POST '+base+'/mcp/registry',
   ['Streamable HTTP · protocol '+init.protocolVersion,
    'Server: '+init.serverInfo.name,
    'Five tools available / five read-only',
@@ -122,6 +122,6 @@ add('09 / READY','Ready for directory review',
 
 await writeFile(output,JSON.stringify({
   title:'Docsy MCP · real live-review walkthrough',capturedAt:new Date().toISOString(),
-  endpoint:base+'/mcp',scenes
+  endpoint:base+'/mcp/registry',scenes
 },null,2)+'\n',{mode:0o600});
 console.log('Captured '+scenes.length+' scenes of real public MCP output to '+output);
