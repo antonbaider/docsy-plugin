@@ -40,7 +40,7 @@ class PluginPackageTests(unittest.TestCase):
         self.assertEqual(registry["version"],plugin["version"])
         self.assertEqual(registry["title"],"Docsy")
         self.assertEqual(registry["repository"]["url"],"https://github.com/getremcp/docsy-plugin")
-        self.assertEqual(registry["remotes"],[{"type":"streamable-http","url":SERVER}])
+        self.assertEqual(registry["remotes"],[{"type":"streamable-http","url":"https://docsy.remcp.site/mcp/registry"}])
         self.assertNotIn("packages",registry)
 
     def test_public_claude_marketplace_can_reference_plugin(self):

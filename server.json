@@ -12,7 +12,7 @@
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://docsy.remcp.site/mcp"
+      "url": "https://docsy.remcp.site/mcp/registry"
     }
   ]
 }
