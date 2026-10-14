@@ -96,3 +96,11 @@ Provider reviewers may still request an additional in-product recording.
 `server.json` is a dedicated manifest for the official MCP Registry in the GitHub-owned namespace `io.github.antonbaider/docsy`. The only transport is the publicly reachable Streamable HTTP endpoint, `https://docsy.remcp.site/mcp`; no unpublished npm package is listed.
 
 Run **Publish Docsy MCP Registry** from GitHub Actions on `main` to validate and publish with GitHub-hosted OIDC. The publisher CLI v1.8.1 is downloaded from the official registry release and verified by pinned SHA-256. No personal access token or long-lived secret is used. Publication must be confirmed from the workflow result and registry response; a prepared manifest alone is not a listing.
+
+## Verified listings, 2026-10-14
+
+The official MCP Registry confirmed `io.github.antonbaider/docsy` version `1.0.5` with status `active`. GitHub OIDC publication completed in [workflow #38594454932](https://github.com/antonbaider/docsy-plugin/actions/runs/38594454932), using the public Streamable HTTP endpoint. Registry API: https://registry.modelcontextprotocol.io/v0.1/servers?search=docsy .
+
+Smithery accepted the `antonbaider/docsy` external remote at https://smithery.ai/servers/antonbaider/docsy . The initial deployment ID was `4909e9c3-301e-435f-90dc-4e8a89529bd9`; this is not an OpenAI, Claude or Cursor plugin-directory approval.
+
+The OpenAI draft is `v1.0.5` with domain/MCP verified; **submission is still pending the individual publisher's own six legal declarations**. The private backend's npm SDK/CLI have not been published because `@docsy` scope ownership and npm authentication are not available.

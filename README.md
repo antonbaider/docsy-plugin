@@ -12,6 +12,14 @@ require a Docsy API key. Only public indexed documentation is accessible.
 
 ## Install
 
+## Verified public MCP registry listings
+
+Docsy **1.0.5** is published as an active remote server in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=docsy), registered as `io.github.antonbaider/docsy`. The record references the public Streamable HTTP server, `https://docsy.remcp.site/mcp`, and this GitHub repository.
+
+It is also available from the [Docsy listing on Smithery](https://smithery.ai/servers/antonbaider/docsy), under `antonbaider/docsy`. The Smithery publishing service accepted the release and discovered five MCP tools; directory health may be updated asynchronously.
+
+These are MCP registry distribution channels. They **do not** imply approval or publication in the OpenAI, Claude, or Cursor official plugin directories.
+
 For **Claude Code**, Docsy now provides an independent, user-installable
 community marketplace. These commands install the open-source package but do
 **not** imply an official Anthropic directory listing:
