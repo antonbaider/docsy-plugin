@@ -21,6 +21,8 @@ claude plugin marketplace add antonbaider/docsy-plugin
 claude plugin install docsy@docsy-community
 ```
 
+For other MCP clients, use the remote endpoint `https://docsy.remcp.site/mcp`. The official registry manifest is kept in [`server.json`](server.json).
+
 For **Cursor**, use the documented one-click deep link (opens Cursor
 locally; it does **not** imply Cursor Marketplace approval):
 
