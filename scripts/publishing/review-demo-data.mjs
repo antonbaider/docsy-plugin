@@ -116,7 +116,7 @@ for(const route of ['/privacy','/terms','/support']){
 }
 add('09 / READY','Ready for directory review',
   'HTTPS  ·  Source-linked docs  ·  Public support',
-  [...statuses, 'Plugin source: github.com/antonbaider/docsy-plugin',
+  [...statuses, 'Plugin source: github.com/getremcp/docsy-plugin',
    'Approved listings: pending marketplace review'],
   'Official listing only after review and publishing');
 

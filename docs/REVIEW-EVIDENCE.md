@@ -13,8 +13,8 @@ OpenAI, Claude, or Cursor directories.
 - Privacy: https://docsy.remcp.site/privacy
 - Terms: https://docsy.remcp.site/terms
 - Support / public issues: https://docsy.remcp.site/support
-- Open-source plugin: https://github.com/antonbaider/docsy-plugin
-- Public plugin ZIP: https://github.com/antonbaider/docsy-plugin/releases/tag/plugin-v1.0.5
+- Open-source plugin: https://github.com/getremcp/docsy-plugin
+- Public plugin ZIP: https://github.com/getremcp/docsy-plugin/releases/tag/plugin-v1.0.5
 - On-demand validation: `node scripts/publishing/mcp-review-smoke.mjs`
 - Automated release build: GitHub Actions → Public plugin quality.
 
@@ -26,7 +26,7 @@ separately from the open-source plugin; their code is not part of this package.
 
 ## Real demonstration recording
 
-The [public v1.0.5 review video](https://github.com/antonbaider/docsy-plugin/releases/download/plugin-v1.0.5/docsy-review-walkthrough-v1.0.5.mp4) shows nine panels derived from **actual, timestamped
+The [public v1.0.5 review video](https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.5/docsy-review-walkthrough-v1.0.5.mp4) shows nine panels derived from **actual, timestamped
 JSON-RPC MCP calls** made on October 11, 2026. This is a visual walkthrough of
 live requests and sanitized metadata/results, not a claim to show the
 ChatGPT, Codex, Cursor or Claude user interface. It documents:
