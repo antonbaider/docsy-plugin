@@ -111,3 +111,11 @@ The OpenAI draft is `v1.0.5` with domain/MCP verified; **submission is still pen
 The GitHub repository moved to `getremcp/docsy-plugin` on 2026-10-14. The original official MCP Registry entry `io.github.antonbaider/docsy` already claimed `https://docsy.remcp.site/mcp`, and the official Registry enforces one server name per remote URL. To preserve all previously installed clients, the edge now hosts the separately tested, stable organizational route `https://docsy.remcp.site/mcp/registry`, which securely proxies to the same read-only MCP backend and retains exactly the existing rate limits, security headers and body cap.
 
 The new `io.github.getremcp/docsy` listing uses only the distinct organizational endpoint; the old `/mcp` endpoint and legacy entry stay available for existing users. The two real endpoints were verified with MCP initialize, tools/list, resolve and cited document retrieval. Do not claim the organization registry is active until the new OIDC publish workflow succeeds and the Registry API reports `active`.
+
+## Organizational listings verified (2026-10-14)
+
+The organization-owned official MCP Registry listing **`io.github.getremcp/docsy` version 1.0.5** is published and marked `active` by the Registry API. [The OIDC publisher run #38599097649](https://github.com/getremcp/docsy-plugin/actions/runs/38599097649) succeeded. It uses the fully functional `https://docsy.remcp.site/mcp/registry` endpoint.
+
+Smithery also accepted `getremcp/docsy` as an external MCP release. The organization-specific public listing is [smithery.ai/servers/getremcp/docsy](https://smithery.ai/servers/getremcp/docsy); its initial deployment ID was `0c8e292e-147c-49eb-9666-1ad22297e80a`. The older `antonbaider/docsy` listing remains available for compatibility.
+
+These public MCP directory publications do not imply approval by the OpenAI, Claude or Cursor official plugin marketplaces.

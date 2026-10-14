@@ -14,9 +14,9 @@ require a Docsy API key. Only public indexed documentation is accessible.
 
 ## Verified public MCP registry listings
 
-Docsy **1.0.5** is published as an active remote server in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=docsy), registered as `io.github.getremcp/docsy`. The record references the public Streamable HTTP server, `https://docsy.remcp.site/mcp`, and this GitHub repository.
+Docsy **1.0.5** is published as an active remote server in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=getremcp), registered as `io.github.getremcp/docsy`. The record references the organizational Streamable HTTP endpoint, `https://docsy.remcp.site/mcp/registry`, and this GitHub repository.
 
-It is also available from the [Docsy listing on Smithery](https://smithery.ai/servers/antonbaider/docsy), under `antonbaider/docsy`. The Smithery publishing service accepted the release and discovered five MCP tools; directory health may be updated asynchronously.
+It is also available from the [Docsy listing on Smithery](https://smithery.ai/servers/getremcp/docsy), under `getremcp/docsy`. The Smithery publishing service accepted the release and discovered five MCP tools; directory health may be updated asynchronously.
 
 These are MCP registry distribution channels. They **do not** imply approval or publication in the OpenAI, Claude, or Cursor official plugin directories.
 
