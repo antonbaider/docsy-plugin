@@ -31,6 +31,48 @@ claude plugin install docsy@docsy-community
 
 For other MCP clients, use the remote endpoint `https://docsy.remcp.site/mcp`. The official registry manifest is kept in [`server.json`](server.json).
 
+### Use Docsy in ChatGPT Work before public directory approval
+
+You can connect the hosted read-only Docsy MCP privately; this does **not**
+publish Docsy in the universal OpenAI Plugins Directory.
+
+1. Open **ChatGPT → Plugins** and select **+ → Add custom MCP server**.
+2. Name it **Docsy**, enter **`https://docsy.remcp.site/mcp/registry`**, and select **No authentication**.
+3. Review the risk notice and approve the custom connection. Select **Create as a plugin**.
+4. Under **Personal**, install the created plugin. Open **ChatGPT Work** and use **@Docsy**
+   to look up versioned documentation with source links.
+
+Custom plugin creation, installation and trust approval are personal account actions.
+See the [official OpenAI quickstart](https://developers.openai.com/plugins/quickstart).
+**OpenAI public directory review is a separate process and is not yet approved.**
+
+### Codex CLI, VS Code and other MCP-capable clients
+
+In **Codex CLI** add the remote server globally:
+
+```sh
+codex mcp add docsy --url https://docsy.remcp.site/mcp/registry
+codex mcp get docsy
+```
+
+For **VS Code**, use **MCP: Open User Configuration**, then merge this server
+under the existing `servers` object. Do not replace other configured servers:
+
+```json
+{
+  "servers": {
+    "docsy": {
+      "type": "http",
+      "url": "https://docsy.remcp.site/mcp/registry"
+    }
+  }
+}
+```
+
+VS Code requires an MCP-enabled agent for tool use; adding a config does not
+mean it has been executed. Cursor supports equivalent user-level
+`~/.cursor/mcp.json` configuration and the one-click link below.
+
 For **Cursor**, use the documented one-click deep link (opens Cursor
 locally; it does **not** imply Cursor Marketplace approval):
 

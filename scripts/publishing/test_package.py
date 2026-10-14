@@ -33,6 +33,15 @@ class PluginPackageTests(unittest.TestCase):
         self.assertEqual(json.loads((ROOT/"mcp.json").read_text())["mcpServers"]["docsy"]["url"],SERVER)
         self.assertEqual(json.loads((ROOT/".mcp.json").read_text())["mcpServers"]["docsy"]["type"],"http")
 
+    def test_installation_docs_cover_personal_chatgpt_and_clients_without_claiming_approval(self):
+        readme=(ROOT/"README.md").read_text()
+        self.assertIn("ChatGPT Work before public directory approval",readme)
+        self.assertIn("No authentication",readme)
+        self.assertIn("codex mcp add docsy --url https://docsy.remcp.site/mcp/registry",readme)
+        self.assertIn("MCP: Open User Configuration",readme)
+        self.assertIn("getremcp/docsy-plugin",readme)
+        self.assertIn("not yet approved",readme)
+
     def test_official_mcp_registry_has_owned_remote_and_no_unpublished_package(self):
         plugin=json.loads((ROOT/"plugin.json").read_text())
         registry=json.loads((ROOT/"server.json").read_text())
