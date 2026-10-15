@@ -12,6 +12,8 @@ require a Docsy API key. Only public indexed documentation is accessible.
 
 ## Install
 
+For the current verified status across publishing channels, see the [distribution status matrix](docs/DISTRIBUTION-STATUS.md).
+
 ## Verified public MCP registry listings
 
 Docsy **1.0.6** is published as an active remote server in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=getremcp), registered as `io.github.getremcp/docsy`. The record references the organizational Streamable HTTP endpoint, `https://docsy.remcp.site/mcp/registry`, and this GitHub repository.
