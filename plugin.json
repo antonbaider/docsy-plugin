@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "docsy",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Search current, version-aware developer documentation with original source links through a read-only remote MCP server.",
   "author": {
     "name": "Anton Baider",
@@ -97,11 +97,11 @@
           ]
         },
         "commerce": false,
-        "demo_recording_url": "https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.6/docsy-review-walkthrough-v1.0.6.mp4"
+        "demo_recording_url": "https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.7/docsy-review-walkthrough-v1.0.7.mp4"
       },
       "onboardingSkill": "./skills/find-docs/SKILL.md",
       "publication": {
-        "release_notes": "v1.0.6: Organization-owned GitHub repository and dedicated canonical HTTPS MCP endpoint. Public read-only tools, source citations and user privacy semantics remain unchanged. Updated review evidence and installer links for all supported clients."
+        "release_notes": "v1.0.7: Align the OpenAI submission and personal Plugin Creator package with complete review scenarios, verified brand assets and source-linked documentation. Public MCP tool behavior, read-only access and existing client endpoints are unchanged."
       }
     }
   }

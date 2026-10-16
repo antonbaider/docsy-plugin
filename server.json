@@ -3,7 +3,7 @@
   "name": "io.github.getremcp/docsy",
   "title": "Docsy",
   "description": "Read versioned developer documentation with original source links using five public MCP tools.",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "websiteUrl": "https://docsy.remcp.site",
   "repository": {
     "url": "https://github.com/getremcp/docsy-plugin",
