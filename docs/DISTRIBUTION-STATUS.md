@@ -11,6 +11,7 @@ Last technical verification: 16 October 2026. **Listings, submissions, private i
 | Awesome Remote MCP Servers | **Listed** | [Developer Tools](https://github.com/punkpeye/awesome-remote-mcp-servers#developer-tools) |
 | Glama | **Connector referenced** | [Organization connector](https://glama.ai/mcp/connectors/io.github.getremcp/docsy) / [badge](https://glama.ai/mcp/connectors/io.github.getremcp/docsy/badges/score.svg) |
 | Claude Code GitHub marketplace | **Installable**, last checked on ASUS | [Installation](../README.md) |
+| Codex Git marketplace | **Installable v1.0.7**, verified on ASUS and MacBook | [Installation](../README.md) |
 | OpenModels MCP directory | **Submitted; awaiting maintainers** | [PR #55](https://github.com/openmodelsrun/mcp/pull/55) |
 | Cline Marketplace | **Submitted; awaiting maintainers** | [PR #244](https://github.com/cline/marketplace/pull/244) |
 | MCP.Directory | **Submitted; awaiting review** | [Submission portal](https://mcp.directory/submit), accepted in public UI on 2026-10-16; not yet a published listing |
