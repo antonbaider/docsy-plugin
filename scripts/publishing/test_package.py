@@ -77,6 +77,19 @@ class PluginPackageTests(unittest.TestCase):
         self.assertNotIn('fetch(base+"/mcp",',source)
         self.assertEqual(json.loads((ROOT/"mcp.json").read_text())["mcpServers"]["docsy"]["url"],SERVER)
 
+    def test_codex_marketplace_entry_is_rooted_and_complete(self):
+        catalog=json.loads((ROOT/".agents/plugins/marketplace.json").read_text())
+        self.assertEqual(catalog["name"],"docsy-community")
+        self.assertEqual(len(catalog["plugins"]),1)
+        entry=catalog["plugins"][0]
+        self.assertEqual(entry["name"],"docsy")
+        self.assertEqual(entry["category"],"Developer Tools")
+        self.assertEqual(entry["policy"]["installation"],"AVAILABLE")
+        self.assertEqual(entry["policy"]["authentication"],"ON_INSTALL")
+        self.assertEqual(entry["source"],{"source":"local","path":"./"})
+        self.assertTrue((ROOT/"plugin.json").is_file())
+        self.assertTrue((ROOT/"mcp.json").is_file())
+
     def test_zip_is_deterministic_and_contains_no_repo_secrets_or_sources(self):
         with tempfile.TemporaryDirectory() as folder:
             a=Path(folder)/"first.zip"
