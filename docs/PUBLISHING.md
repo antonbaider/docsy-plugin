@@ -2,7 +2,7 @@
 
 Docsy exposes one **public, read-only remote MCP** endpoint:
 
-    https://docsy.remcp.site/mcp
+    https://docsy.remcp.site/mcp/registry
 
 Tools: `resolve-library-id`, `query-docs`, `list-library-versions`, `search`, `fetch`. The endpoint uses Streamable HTTP, supports anonymous public lookups with rate limits, and does not require an API key. Never claim that anonymous retrieval provides access to private repositories or user account data.
 
@@ -18,7 +18,7 @@ Tools: `resolve-library-id`, `query-docs`, `list-library-versions`, `search`, `f
 Validate and build the release:
 
     python3 scripts/publishing/package.py --check
-    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.5.zip
+    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.6.zip
 
 Never include API keys, Firebase service secrets, database URLs, or credential files inside a public plugin ZIP. The package builder uses an explicit file allowlist rather than zipping the entire monorepo.
 
@@ -39,7 +39,7 @@ Official references:
 
 1. Verify your publisher identity in the OpenAI Platform organization. The verified individual/business name must match the directory publisher. The placeholder contributor attribution in the manifest must be corrected to the verified identity if needed.
 2. Ensure account/project can submit remote MCP plugins and has `api.apps.write`. Projects in EU-only data residency cannot currently submit MCP plugins; use an eligible project.
-3. Upload the verified ZIP from above in the Plugins submission portal using **With MCP**. Connect `https://docsy.remcp.site/mcp` as the universal HTTPS endpoint. Complete the platform's domain challenge. No OAuth is needed for the anonymous public read-only tool set; do not pretend Docsy implements OAuth.
+3. Upload the verified ZIP from above in the Plugins submission portal using **With MCP**. Connect `https://docsy.remcp.site/mcp/registry` as the universal HTTPS endpoint. Complete the platform's domain challenge. No OAuth is needed for the anonymous public read-only tool set; do not pretend Docsy implements OAuth.
 4. Run **Scan Tools**. Review the live name, descriptions, input schema, annotations, identity and security schemes of all five tools. Provide the four legal/support website URLs, owned logos, and accurate publisher information.
 5. Confirm the five positive and three negative cases embedded in `plugin.json`. Collect real expected results from the smoke test (no forged outputs). Produce an **actual reviewer-accessible demo recording** showing tools working; do not fabricate a video URL or reviewer credentials.
 6. Submit for review and act on feedback. Publish only after approval. Plugin ZIP uploads, verification and directory publishing require the publisher's account permissions.
@@ -50,7 +50,7 @@ Official source: https://claude.com/resources/articles/build-plugins-for-claude
 
 Anthropic's plugin directory accepts a remote **single MCP connector** or a **GitHub plugin bundle**. Using a paid Claude plan, open the developer submission portal from the Claude directory.
 
-- For the straightforward MCP-only submission, supply `https://docsy.remcp.site/mcp`. Provide real publisher contacts, product description, source links, privacy/terms/support URLs, and a working review demo.
+- For the straightforward MCP-only submission, supply `https://docsy.remcp.site/mcp/registry`. Provide real publisher contacts, product description, source links, privacy/terms/support URLs, and a working review demo.
 - For bundled installation, use the publicly accessible Docsy plugin repository; manifests are stored in `.claude-plugin/plugin.json` / `.mcp.json` and the documentation skill is in `skills/find-docs/`. Validate the plugin's exact root and repository URL in the portal before submission.
 - Claude may audit security and compatibility and does not guarantee inclusion. Review status and analytics appear after submission/approval, where eligible.
 
@@ -64,9 +64,13 @@ Cursor accepts **Agent Plugins** (root `plugin.json` + `mcp.json` + skills) and 
 
 To connect without marketplace listing, configure Cursor with:
 
-    {"mcpServers":{"docsy":{"url":"https://docsy.remcp.site/mcp"}}}
+    {"mcpServers":{"docsy":{"url":"https://docsy.remcp.site/mcp/registry"}}}
 
 For public listing, submit the public GitHub source through Cursor Marketplace's publisher form. Cursor manually reviews submissions. Provide publisher identity, legal URLs, usage examples and the real GitHub URL. Only claim official marketplace availability once approved and indexed.
+
+## Independent directory publication
+
+The organization-owned [MCP Registry listing](https://registry.modelcontextprotocol.io/v0.1/servers?search=getremcp) is the canonical source for automatic directory discovery. As of 2026-10-16, [mcpub](https://mcpub.dev/) reports Docsy registered and publicly searchable; [MCP.Directory](https://mcp.directory/submit) accepted the public GitHub repository for review; and [mcp.tc](https://mcp.tc/s/dc7OMIJio-fn2yHv) is awaiting human review. See [distribution status](DISTRIBUTION-STATUS.md) for evidence; do not confuse submissions with live listings. The public server card is at `https://docsy.remcp.site/.well-known/mcp.json`.
 
 ## Outstanding externally controlled items
 
@@ -93,7 +97,7 @@ Provider reviewers may still request an additional in-product recording.
 
 ## Official MCP Registry (remote server)
 
-`server.json` is a dedicated manifest for the official MCP Registry in the GitHub-owned namespace `io.github.getremcp/docsy`. The only transport is the publicly reachable Streamable HTTP endpoint, `https://docsy.remcp.site/mcp`; no unpublished npm package is listed.
+`server.json` is a dedicated manifest for the official MCP Registry in the GitHub-owned namespace `io.github.getremcp/docsy`. The only transport is the publicly reachable Streamable HTTP endpoint, `https://docsy.remcp.site/mcp/registry`; no unpublished npm package is listed.
 
 Run **Publish Docsy MCP Registry** from GitHub Actions on `main` to validate and publish with GitHub-hosted OIDC. The publisher CLI v1.8.1 is downloaded from the official registry release and verified by pinned SHA-256. No personal access token or long-lived secret is used. Publication must be confirmed from the workflow result and registry response; a prepared manifest alone is not a listing.
 
@@ -108,7 +112,7 @@ The OpenAI draft is `v1.0.5` with domain/MCP verified; **submission is still pen
 
 ## Organization registry endpoint migration
 
-The GitHub repository moved to `getremcp/docsy-plugin` on 2026-10-14. The original official MCP Registry entry `io.github.antonbaider/docsy` already claimed `https://docsy.remcp.site/mcp`, and the official Registry enforces one server name per remote URL. To preserve all previously installed clients, the edge now hosts the separately tested, stable organizational route `https://docsy.remcp.site/mcp/registry`, which securely proxies to the same read-only MCP backend and retains exactly the existing rate limits, security headers and body cap.
+The GitHub repository moved to `getremcp/docsy-plugin` on 2026-10-14. The original official MCP Registry entry `io.github.antonbaider/docsy` already claimed `https://docsy.remcp.site/mcp/registry`, and the official Registry enforces one server name per remote URL. To preserve all previously installed clients, the edge now hosts the separately tested, stable organizational route `https://docsy.remcp.site/mcp/registry`, which securely proxies to the same read-only MCP backend and retains exactly the existing rate limits, security headers and body cap.
 
 The new `io.github.getremcp/docsy` listing uses only the distinct organizational endpoint; the old `/mcp` endpoint and legacy entry stay available for existing users. The two real endpoints were verified with MCP initialize, tools/list, resolve and cited document retrieval. Do not claim the organization registry is active until the new OIDC publish workflow succeeds and the Registry API reports `active`.
 
