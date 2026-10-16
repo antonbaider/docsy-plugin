@@ -42,6 +42,18 @@ class PluginPackageTests(unittest.TestCase):
         self.assertIn("getremcp/docsy-plugin",readme)
         self.assertIn("not yet approved",readme)
 
+    def test_distribution_status_tracks_current_plugin_release(self):
+        version=validate()["version"]
+        status=(ROOT/"docs/DISTRIBUTION-STATUS.md").read_text()
+        readme=(ROOT/"README.md").read_text()
+        self.assertIn(f"GitHub Plugin v{version}",status)
+        self.assertIn(f"Active, latest v{version}",status)
+        self.assertIn(f"The plugin package version is **v{version}**",status)
+        self.assertIn(f"Installable v{version}",status)
+        self.assertIn("Codex Git marketplace",status)
+        self.assertIn(f"plugin-v{version}/docsy-review-walkthrough-v{version}.mp4",readme)
+        self.assertIn(f"/tmp/docsy-plugin-v{version}.zip",readme)
+
     def test_official_mcp_registry_has_owned_remote_and_no_unpublished_package(self):
         plugin=json.loads((ROOT/"plugin.json").read_text())
         registry=json.loads((ROOT/"server.json").read_text())
