@@ -34,6 +34,7 @@ jobs:
           python3 scripts/publishing/package.py --check
           python3 -m unittest discover -s scripts/publishing -p 'test_*.py'
           node --check scripts/publishing/mcp-review-smoke.mjs
+          node --test scripts/publishing/test_review_protocol.mjs
           node --check scripts/publishing/review-demo-data.mjs
           python3 -m py_compile scripts/publishing/render-review-demo.py
           python3 scripts/publishing/package.py --output "${RUNNER_TEMP}/docsy-plugin.zip"

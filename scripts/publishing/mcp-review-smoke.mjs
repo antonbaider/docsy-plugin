@@ -1,5 +1,6 @@
 // Reviewer-oriented public MCP contract verification. No credentials or writes.
 import {readFileSync} from "node:fs";
+import {decodeRpc,requireToolRefusal} from "./review-protocol.mjs";
 const packageMcp=JSON.parse(readFileSync(new URL("../../mcp.json",import.meta.url),"utf8"));
 const defaultMcpUrl=packageMcp.mcpServers?.docsy?.url;
 if(typeof defaultMcpUrl!=="string"||!defaultMcpUrl.startsWith("https://")){
@@ -22,11 +23,9 @@ let calls=0;
 const assert=(ok,message)=>{if(!ok)throw new Error(message);};
 const timeout=ms=>AbortSignal.timeout(ms);
 function parseRpc(body,id){
-  const messages=body.split(/\r?\n/).filter(line=>line.startsWith("data: "))
-    .map(line=>JSON.parse(line.slice(6)));
-  const response=messages.find(m=>m?.id===id)??(messages.length?messages[0]:JSON.parse(body));
-  if(response?.error)throw new Error("JSON-RPC failure "+JSON.stringify(response.error));
-  assert(response?.result,"Missing JSON-RPC result for "+id);
+  const response=decodeRpc(body,id);
+  if(response.error)throw new Error("JSON-RPC failure "+JSON.stringify(response.error));
+  assert(response.result,"Missing JSON-RPC result for "+id);
   return response.result;
 }
 async function rpc(method,params={},ms=40_000){
@@ -111,8 +110,8 @@ assert(notFound==="Document not found.","Unknown result IDs must not expose othe
 console.log("PASS safe missing-document fallback");
 // Invalid tool names and missing required params must not be accepted as successful calls.
 for(const invalid of [
-  {name:"delete-every-library",args:{}},
-  {name:"query-docs",args:{libraryId:"/reactjs/react.dev"}}
+  {name:"delete-every-library",args:{},kind:"unknown-tool"},
+  {name:"query-docs",args:{libraryId:"/reactjs/react.dev"},kind:"invalid-input"}
 ]){
   const id=++calls;
   const response=await fetch(mcpUrl,{
@@ -121,14 +120,9 @@ for(const invalid of [
     signal:timeout(15_000)
   });
   const body=await response.text();
-  let refused=!response.ok;
-  if(response.ok){
-    try{
-      const parsed=parseRpc(body,id);
-      refused=Boolean(parsed.isError);
-    }catch{refused=true;}
-  }
-  assert(refused,"Tool unexpectedly accepted an invalid operation: "+invalid.name);
+  const refusal=requireToolRefusal(response.status,body,id,invalid.kind);
+  assert(refusal.trim().length>0,"Refusal must contain an explanation");
+
 }
 console.log("PASS unknown/malformed tool refusals");
 if(!skipLegal){
