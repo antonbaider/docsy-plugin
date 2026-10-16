@@ -165,6 +165,15 @@ For remote MCP and public legal-page smoke tests, run:
 
 Directory publication requires identity verification, platform review and approval.
 
+For **updates to the original OpenAI Platform Docsy app only**, preserve its
+registered legacy `/mcp` URL. The standard public ZIP uses `/mcp/registry`;
+Platform rejects changing an existing app's MCP URL. Build the scoped update
+ZIP using [`platform_legacy_overlay.py`](scripts/publishing/platform_legacy_overlay.py)
+as documented in the [distribution status matrix](docs/DISTRIBUTION-STATUS.md).
+Do not use that compatibility ZIP for fresh installations or registry releases.
+
+
+
 ## Marketplace review walkthrough
 
 The [45-second public video](https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.7/docsy-review-walkthrough-v1.0.7.mp4)
