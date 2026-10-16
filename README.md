@@ -16,7 +16,7 @@ For the current verified status across publishing channels, see the [distributio
 
 ## Verified public MCP registry listings
 
-Docsy **1.0.6** is published as an active remote server in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=getremcp), registered as `io.github.getremcp/docsy`. The record references the organizational Streamable HTTP endpoint, `https://docsy.remcp.site/mcp/registry`, and this GitHub repository.
+Docsy **1.0.7** is published as an active remote server in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=getremcp), registered as `io.github.getremcp/docsy`. The record references the organizational Streamable HTTP endpoint, `https://docsy.remcp.site/mcp/registry`, and this GitHub repository.
 
 It is also available from the [Docsy listing on Smithery](https://smithery.ai/servers/getremcp/docsy), under `getremcp/docsy`. The Smithery publishing service accepted the release and discovered five MCP tools; directory health may be updated asynchronously.
 
@@ -157,7 +157,7 @@ With Python 3, run:
 
     python3 scripts/publishing/package.py --check
     python3 -m unittest discover -s scripts/publishing -p 'test_*.py'
-    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.6.zip
+    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.7.zip
 
 For remote MCP and public legal-page smoke tests, run:
 
@@ -167,7 +167,7 @@ Directory publication requires identity verification, platform review and approv
 
 ## Marketplace review walkthrough
 
-The [45-second public video](https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.6/docsy-review-walkthrough-v1.0.6.mp4)
+The [45-second public video](https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.7/docsy-review-walkthrough-v1.0.7.mp4)
 presents actual public MCP JSON-RPC results for the five read-only tools,
 source URL attribution, invalid requests and safe failures. The presenter is
 a rendered trace, **not a mocked ChatGPT, Claude, or Cursor UI**. Capture and
