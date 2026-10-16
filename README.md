@@ -31,6 +31,22 @@ claude plugin marketplace add getremcp/docsy-plugin
 claude plugin install docsy@docsy-community
 ```
 
+### Install the Docsy plugin in Codex (CLI and IDE)
+
+Codex supports Git plugin marketplaces, so you can install the complete Docsy
+plugin (MCP server configuration and documentation skill) in addition to adding
+the bare MCP endpoint. On a Codex CLI with plugin support:
+
+```sh
+codex plugin marketplace add getremcp/docsy-plugin
+codex plugin add docsy@docsy-community
+codex plugin list
+```
+
+This is a public, user-installable Codex Git marketplace, **not** a claim of
+approval or publication in the official OpenAI Plugin Directory. The remote
+MCP server requires no Docsy account or API key for public docs.
+
 For other MCP clients, use the remote endpoint `https://docsy.remcp.site/mcp/registry`. The official registry manifest is kept in [`server.json`](server.json).
 
 ### Use Docsy in ChatGPT Work before public directory approval
