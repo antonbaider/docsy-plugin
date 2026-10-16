@@ -1,5 +1,12 @@
 // Reviewer-oriented public MCP contract verification. No credentials or writes.
-const base=(process.env.DOCSY_PUBLIC_URL??"https://docsy.remcp.site").replace(/\/+$/,"");
+import {readFileSync} from "node:fs";
+const packageMcp=JSON.parse(readFileSync(new URL("../../mcp.json",import.meta.url),"utf8"));
+const defaultMcpUrl=packageMcp.mcpServers?.docsy?.url;
+if(typeof defaultMcpUrl!=="string"||!defaultMcpUrl.startsWith("https://")){
+  throw new Error("Missing public HTTPS endpoint in package mcp.json");
+}
+const mcpUrl=(process.env.DOCSY_MCP_URL??defaultMcpUrl).replace(/\/+$/,"");
+const base=(process.env.DOCSY_PUBLIC_URL??new URL(mcpUrl).origin).replace(/\/+$/,"");
 const skipLegal=process.argv.includes("--skip-public-pages");
 const headers={
   "content-type":"application/json",
@@ -24,7 +31,7 @@ function parseRpc(body,id){
 }
 async function rpc(method,params={},ms=40_000){
   const id=++calls;
-  const response=await fetch(base+"/mcp",{
+  const response=await fetch(mcpUrl,{
     method:"POST",headers:requestHeaders(),
     body:JSON.stringify({jsonrpc:"2.0",id,method,params}),signal:timeout(ms)
   });
@@ -44,7 +51,7 @@ assert(init.serverInfo?.name==="Docsy","MCP returned unexpected server name");
 assert(["2025-06-18","2025-11-25"].includes(init.protocolVersion),
   "MCP negotiated unsupported protocol version: "+init.protocolVersion);
 negotiatedVersion=init.protocolVersion;
-const initialized=await fetch(base+"/mcp",{
+const initialized=await fetch(mcpUrl,{
   method:"POST",headers:requestHeaders(),
   body:JSON.stringify({jsonrpc:"2.0",method:"notifications/initialized"}),
   signal:timeout(15_000)
@@ -108,7 +115,7 @@ for(const invalid of [
   {name:"query-docs",args:{libraryId:"/reactjs/react.dev"}}
 ]){
   const id=++calls;
-  const response=await fetch(base+"/mcp",{
+  const response=await fetch(mcpUrl,{
     method:"POST",headers:requestHeaders(),
     body:JSON.stringify({jsonrpc:"2.0",id,method:"tools/call",params:{name:invalid.name,arguments:invalid.args}}),
     signal:timeout(15_000)

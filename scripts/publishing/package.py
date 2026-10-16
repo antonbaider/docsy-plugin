@@ -31,6 +31,32 @@ def validate():
     assert len(interface["displayName"])<=30
     assert 0<len(interface["shortDescription"])<=30
     assert interface["category"]=="Developer Tools"
+    # Public review rejects missing/malformed listing copy and icon assets,
+    # even if the Agent Plugins manifest itself can still be parsed.
+    assert plugin.get("apps") is None and plugin["extensions"]["com.openai"].get("apps") is None, "Upload must not embed private app bindings"
+    for key,limit in (("longDescription",4000),("developerName",80)):
+        value=interface.get(key)
+        assert isinstance(value,str) and 0<len(value.strip())<=limit, f"Invalid {key}"
+    prompts=interface.get("defaultPrompt")
+    assert isinstance(prompts,list) and 1<=len(prompts)<=3, "Need 1-3 default prompts"
+    normalized=[]
+    for prompt in prompts:
+        assert isinstance(prompt,str) and prompt.strip() and len(prompt)<=128, "Invalid default prompt"
+        assert "\n" not in prompt and "\r" not in prompt, "Default prompts must be single-line"
+        assert "@" not in prompt, "Default prompts must not contain app mentions"
+        normalized.append(" ".join(prompt.split()).casefold())
+    assert len(set(normalized))==len(normalized), "Duplicate default prompts"
+    for key,min_side in (("composerIcon",48),("logo",256),("logoDark",256)):
+        if key=="logoDark" and not interface.get(key):
+            continue
+        path=ROOT/interface[key].lstrip("./")
+        assert path.is_file(), f"Missing asset: {key}"
+        raw=path.read_bytes()
+        assert len(raw)<=5*1024*1024, f"Oversized PNG asset: {key}"
+        assert raw.startswith(b"\x89PNG\r\n\x1a\n") and raw[12:16]==b"IHDR", f"Non-PNG asset: {key}"
+        width=int.from_bytes(raw[16:20],"big")
+        height=int.from_bytes(raw[20:24],"big")
+        assert width==height and width>=min_side, f"Invalid square PNG dimensions: {key}"
     assert plugin["author"]["name"]==interface["developerName"]
     for key in FIELDS:
         assert interface[key].startswith("https://docsy.remcp.site/") or (

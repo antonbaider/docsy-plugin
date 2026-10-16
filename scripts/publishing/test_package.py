@@ -69,6 +69,14 @@ class PluginPackageTests(unittest.TestCase):
         self.assertTrue(cursor.verify(link))
         self.assertNotIn("Bearer",link)
 
+    def test_smoke_targets_exact_submitted_endpoint_not_legacy_alias(self):
+        source=(ROOT/"scripts/publishing/mcp-review-smoke.mjs").read_text()
+        self.assertIn('new URL("../../mcp.json",import.meta.url)',source)
+        self.assertIn('process.env.DOCSY_MCP_URL',source)
+        self.assertEqual(source.count('fetch(mcpUrl,{'),3)
+        self.assertNotIn('fetch(base+"/mcp",',source)
+        self.assertEqual(json.loads((ROOT/"mcp.json").read_text())["mcpServers"]["docsy"]["url"],SERVER)
+
     def test_zip_is_deterministic_and_contains_no_repo_secrets_or_sources(self):
         with tempfile.TemporaryDirectory() as folder:
             a=Path(folder)/"first.zip"
