@@ -1,6 +1,6 @@
 # Docsy distribution status
 
-Last technical verification: 15 October 2026. **Listings, submissions, private installations, and official approvals are different states.** See the linked primary evidence; catalogue operators control review timing.
+Last technical verification: 16 October 2026. **Listings, submissions, private installations, and official approvals are different states.** See the linked primary evidence; catalogue operators control review timing.
 
 | Channel | Status | Evidence |
 | --- | --- | --- |
@@ -13,6 +13,9 @@ Last technical verification: 15 October 2026. **Listings, submissions, private i
 | Claude Code GitHub marketplace | **Installable**, last checked on ASUS | [Installation](../README.md) |
 | OpenModels MCP directory | **Submitted; awaiting maintainers** | [PR #55](https://github.com/openmodelsrun/mcp/pull/55) |
 | Cline Marketplace | **Submitted; awaiting maintainers** | [PR #244](https://github.com/cline/marketplace/pull/244) |
+| MCP.Directory | **Submitted; awaiting review** | [Submission portal](https://mcp.directory/submit), accepted in public UI on 2026-10-16; not yet a published listing |
+| mcp.tc | **Queued for human review** | [Docsy submission status](https://mcp.tc/s/dc7OMIJio-fn2yHv); endpoint detected, no public listing yet |
+| mcpub | **Registered; discoverable in public search** | [mcpub](https://mcpub.dev/): verified public MCP tools `submit`, `get` and `search` on 2026-10-16; Docsy registered under `https://docsy.remcp.site` |
 | OpenAI Plugin Directory | **Not confirmed submitted** | Publisher must attest to legal declarations in the correct OpenAI Platform account; technical ZIP alone is not an approval |
 | Official Claude Directory | **Not confirmed submitted** | Separate authenticated publisher review required |
 | Cursor Marketplace | **Not confirmed submitted** | [Submission form](https://cursor.com/marketplace/publish) requires publisher login/review |
@@ -27,3 +30,7 @@ The GitHub repository contains the MIT-licensed plugin manifests and integration
 The plugin package version is **v1.0.6**; do not confuse it with the version string advertised by the hosted backend's MCP `serverInfo`, which may differ.
 
 For personal ChatGPT use, creating and approving a custom MCP connection is an account-level action. It is **not** automatic just because Docsy appears in the official MCP Registry.
+
+## Discovery metadata
+
+The public plugin repository is tagged with MCP, remote MCP, developer documentation, Claude Code and Cursor topics and points to the live service homepage. A domain-level discovery manifest has been merged in [core PR #158](https://github.com/antonbaider/docsy/pull/158), live and verified via HTTPS on 2026-10-16.
