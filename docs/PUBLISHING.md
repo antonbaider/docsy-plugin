@@ -18,7 +18,7 @@ Tools: `resolve-library-id`, `query-docs`, `list-library-versions`, `search`, `f
 Validate and build the release:
 
     python3 scripts/publishing/package.py --check
-    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.6.zip
+    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.7.zip
 
 Never include API keys, Firebase service secrets, database URLs, or credential files inside a public plugin ZIP. The package builder uses an explicit file allowlist rather than zipping the entire monorepo.
 
@@ -127,3 +127,14 @@ These public MCP directory publications do not imply approval by the OpenAI, Cla
 ## v1.0.6 organizational release (October 14, 2026)
 
 The canonical public client transport for the new release is `https://docsy.remcp.site/mcp/registry`, owned by organizational registry entry `io.github.getremcp/docsy`. The legacy `/mcp` endpoint remains active to avoid breaking existing installations. The release should include a deterministic ZIP and a real-response review video, both generated from its immutable `plugin-v1.0.6` tag; successful release-integrity CI and MCP Registry OIDC publication must be verified before announcing it.
+
+
+## v1.0.7 verified public release (October 16, 2026)
+
+- [Public ZIP and real-response review recording](https://github.com/getremcp/docsy-plugin/releases/tag/plugin-v1.0.7).
+- [GitHub release-integrity validation](https://github.com/getremcp/docsy-plugin/actions/runs/38953672390) confirmed that the attached ZIP matches immutable tag source.
+- [MCP Registry OIDC publish run](https://github.com/getremcp/docsy-plugin/actions/runs/38953737055) passed, and the Registry API reported `io.github.getremcp/docsy@1.0.7` as `active` and `isLatest=true`.
+- The video uses newly captured real public MCP responses, not an impersonated ChatGPT UI.
+- The portable ZIP contains the full five positive and three negative review cases, verified PNG artwork and a single existing public MCP endpoint. The tools remain read-only.
+
+A public GitHub release or MCP Registry listing does **not** imply that the OpenAI Plugin Directory accepted a submitted draft, completed identity/legal review, or published a marketplace listing. Personal Plugin Creator releases use a separate author-account update path and must be verified independently.
