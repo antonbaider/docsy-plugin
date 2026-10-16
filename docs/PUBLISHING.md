@@ -138,3 +138,39 @@ The canonical public client transport for the new release is `https://docsy.remc
 - The portable ZIP contains the full five positive and three negative review cases, verified PNG artwork and a single existing public MCP endpoint. The tools remain read-only.
 
 A public GitHub release or MCP Registry listing does **not** imply that the OpenAI Plugin Directory accepted a submitted draft, completed identity/legal review, or published a marketplace listing. Personal Plugin Creator releases use a separate author-account update path and must be verified independently.
+
+## Updating the existing private Plugin Creator installation
+
+The public OpenAI submission ZIP and a personal Plugin Creator update are
+different archives. A personal plugin may have a legacy compatibility
+manifest and existing user prompts which must not be replaced by a clean
+public ZIP. Never use create_plugin to repair an existing installation.
+
+1. Read the exact private plugin by backend plugin_id via Plugin Creator
+   get_plugin_files; record its current_release_id. Save its existing
+   .codex-plugin/plugin.json into a local file outside the repository.
+2. Prepare a public release with a strictly higher semantic version than
+   that stored personal release. The script rejects equal or older versions
+   instead of silently triggering the platform's automatic patch bump.
+3. From the same immutable release source, build a dedicated overlay:
+
+       python3 scripts/publishing/account_overlay.py \
+         --existing-legacy /path/to/existing-codex-plugin.json \
+         --output /tmp/docsy-plugin-account-update.zip
+
+   It includes the original public package files, owned icons, and a legacy
+   compatibility manifest; it retains the prior publisher email, exact user
+   default prompts, skill path, and MCP binding. The archive must not contain
+   a private .mcp.json, .app.json, credentials, or account tokens.
+4. Pass the ZIP as a host-uploaded file available to Plugin Creator
+   update_plugin, with the exact plugin_id and saved current_release_id as its
+   expected_release_id. A path on another paired machine is not a
+   host-uploaded file and fails with UNREGISTERED_FILE_REFERENCE; do not
+   assert success or fabricate a local file reference.
+5. Re-read the saved release with get_plugin_files and verify its version,
+   manifests, complete five positive/three negative review tests, icon
+   inventory, and unchanged MCP endpoint.
+
+This private update is not an OpenAI public-directory submission.
+Publisher verification, the submission portal, legal declarations, review,
+and subsequent publication remain separate.
