@@ -74,5 +74,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify live public MCP and legal pages
+      - name: Verify canonical public MCP and legal pages
+        run: node scripts/publishing/mcp-review-smoke.mjs
+      # The existing OpenAI Platform submission is permanently bound to this
+      # legacy alias. Keep monitoring it until that application is retired.
+      - name: Verify original OpenAI Platform MCP alias
+        env:
+          DOCSY_MCP_URL: https://docsy.remcp.site/mcp
         run: node scripts/publishing/mcp-review-smoke.mjs
