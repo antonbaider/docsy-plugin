@@ -7,6 +7,7 @@ changes only mcp.json's public endpoint alias, never the normal release ZIP.
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
@@ -15,10 +16,22 @@ from package import FILES, SERVER, validate
 LEGACY_URL = "https://docsy.remcp.site/mcp"
 
 
-def build_legacy_portal_update(source: Path, output: Path):
+def build_legacy_portal_update(source: Path, output: Path, *,
+                               expected_version: str | None = None,
+                               expected_sha256: str | None = None):
     if source.resolve() == output.resolve():
         raise ValueError("Input and output ZIP paths must differ")
-    version = validate()["version"]
+    current_version = validate()["version"]
+    version = expected_version or current_version
+    if re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", version) is None:
+        raise ValueError("Expected version must be a strict semver release")
+    if version != current_version and not expected_sha256:
+        raise ValueError("Historical release requires a pinned SHA-256 digest")
+    if expected_sha256 is not None:
+        if re.fullmatch(r"[0-9a-fA-F]{64}", expected_sha256) is None:
+            raise ValueError("Expected SHA-256 must be 64 hex characters")
+        if hashlib.sha256(source.read_bytes()).hexdigest() != expected_sha256.lower():
+            raise ValueError("Source release SHA-256 does not match the pinned digest")
     with ZipFile(source) as archive:
         if archive.testzip() is not None:
             raise ValueError("Source ZIP is corrupt")
@@ -53,6 +66,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--expected-version", help="Immutable older release version")
+    parser.add_argument("--expected-sha256", help="Pinned source release asset checksum")
     args = parser.parse_args()
     print("Existing Platform MCP alias:", LEGACY_URL)
-    print("Created", args.output, "SHA256", build_legacy_portal_update(args.input, args.output))
+    print("Created", args.output, "SHA256", build_legacy_portal_update(
+        args.input, args.output,
+        expected_version=args.expected_version,
+        expected_sha256=args.expected_sha256))

@@ -1,5 +1,6 @@
 """Keep OpenAI's original Docsy draft compatible without changing release ZIPs."""
 import json
+import hashlib
 from pathlib import Path
 import sys
 import tempfile
@@ -28,6 +29,34 @@ class ExistingPlatformUpdateTests(unittest.TestCase):
                         self.assertEqual(a.read(name), b.read(name), name)
                 self.assertEqual(b.testzip(), None)
             self.assertTrue(source.is_file())
+
+    def test_historical_releases_require_pinned_version_and_digest(self):
+        with tempfile.TemporaryDirectory() as folder:
+            base = Path(folder)
+            source, legacy = base / "old-release.zip", base / "review.zip"
+            build(source)
+            with ZipFile(source) as zip_file:
+                payload = {name: zip_file.read(name) for name in FILES}
+            manifest = json.loads(payload["plugin.json"])
+            manifest["version"] = "1.0.8"
+            payload["plugin.json"] = (json.dumps(manifest) + "\n").encode()
+            with ZipFile(source, "w") as zip_file:
+                for name in sorted(payload):
+                    zip_file.writestr(name, payload[name])
+            digest = hashlib.sha256(source.read_bytes()).hexdigest()
+            with self.assertRaisesRegex(ValueError, "pinned SHA-256"):
+                build_legacy_portal_update(source, legacy, expected_version="1.0.8")
+            with self.assertRaisesRegex(ValueError, "does not match"):
+                build_legacy_portal_update(source, legacy, expected_version="1.0.8",
+                                           expected_sha256="0" * 64)
+            with self.assertRaisesRegex(ValueError, "strict semver"):
+                build_legacy_portal_update(source, legacy, expected_version="../old",
+                                           expected_sha256=digest)
+            build_legacy_portal_update(source, legacy, expected_version="1.0.8",
+                                       expected_sha256=digest)
+            with ZipFile(legacy) as archive:
+                self.assertEqual(json.loads(archive.read("plugin.json"))["version"], "1.0.8")
+                self.assertEqual(json.loads(archive.read("mcp.json"))["mcpServers"]["docsy"]["url"], LEGACY_URL)
 
     def test_rebuild_is_deterministic_and_refuses_double_overlay(self):
         with tempfile.TemporaryDirectory() as folder:

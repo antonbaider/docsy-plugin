@@ -167,7 +167,7 @@ With Python 3, run:
 
     python3 scripts/publishing/package.py --check
     python3 -m unittest discover -s scripts/publishing -p 'test_*.py'
-    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.8.zip
+    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.9.zip
 
 For remote MCP and public legal-page smoke tests, run:
 
@@ -186,7 +186,7 @@ Do not use that compatibility ZIP for fresh installations or registry releases.
 
 ## Marketplace review walkthrough
 
-The [45-second public video](https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.8/docsy-review-walkthrough-v1.0.8.mp4)
+The [latest 45-second public video](https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.9/docsy-review-walkthrough-v1.0.9.mp4)
 presents actual public MCP JSON-RPC results for the five read-only tools,
 source URL attribution, invalid requests and safe failures. The presenter is
 a rendered trace, **not a mocked ChatGPT, Claude, or Cursor UI**. Capture and
@@ -204,6 +204,6 @@ checks, annotation rationale, safe failures, third-party source links and
 remaining platform approvals. The video shows real JSON-RPC responses, not
 a ChatGPT/Claude/Cursor product interface or marketplace approval.
 
-The v1.0.5 release ZIP must be reproducible from its exact Git tag; the
+Every release ZIP, including v1.0.9, must be reproducible from its exact Git tag; the
 release-integrity workflow compares the published asset byte-for-byte.
 Version 1.0.3 is superseded because its uploaded ZIP did not match its tag.

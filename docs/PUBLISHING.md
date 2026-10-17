@@ -18,7 +18,7 @@ Tools: `resolve-library-id`, `query-docs`, `list-library-versions`, `search`, `f
 Validate and build the release:
 
     python3 scripts/publishing/package.py --check
-    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.7.zip
+    python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.9.zip
 
 Never include API keys, Firebase service secrets, database URLs, or credential files inside a public plugin ZIP. The package builder uses an explicit file allowlist rather than zipping the entire monorepo.
 
@@ -128,6 +128,20 @@ These public MCP directory publications do not imply approval by the OpenAI, Cla
 
 The canonical public client transport for the new release is `https://docsy.remcp.site/mcp/registry`, owned by organizational registry entry `io.github.getremcp/docsy`. The legacy `/mcp` endpoint remains active to avoid breaking existing installations. The release should include a deterministic ZIP and a real-response review video, both generated from its immutable `plugin-v1.0.6` tag; successful release-integrity CI and MCP Registry OIDC publication must be verified before announcing it.
 
+
+## Current published release (October 17, 2026)
+
+The public plugin and official MCP Registry currently have **v1.0.9**
+([tag, release ZIP and live-response demo](https://github.com/getremcp/docsy-plugin/releases/tag/plugin-v1.0.9)).
+This release uses the approved Docsy Brand Kit artwork and the canonical
+`/mcp/registry` endpoint. Version **v1.0.8** remains the independently
+submitted OpenAI Platform review candidate, so updating the public plugin
+does not update or imply approval of that existing Platform app.
+
+For the original Platform app's unchanged `/mcp` binding, use the **pinned
+v1.0.8 release ZIP**, explicit version and SHA-256 checksum in
+[Distribution Status](DISTRIBUTION-STATUS.md). Never build a ZIP with the
+v1.0.8 filename from the current v1.0.9 tree.
 
 ## v1.0.7 verified public release (October 16, 2026)
 

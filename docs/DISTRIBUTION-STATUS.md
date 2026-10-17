@@ -43,14 +43,20 @@ the official MCP Registry, new users, Codex or the Git marketplace.
 To reproduce the submission-specific ZIP from the standard public release ZIP:
 
 ```sh
-python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.8.zip
+# Use the immutable 1.0.8 release submitted for Platform review, NOT
+# a newly generated 1.0.9 ZIP with a misleading 1.0.8 filename.
+gh release download plugin-v1.0.8 -R getremcp/docsy-plugin \
+  --pattern docsy-plugin-v1.0.8.zip --dir /tmp --clobber
+echo 'b1278bfc589b97aba90d6b301e27359164711135936989659a8cec9aeae468d4  /tmp/docsy-plugin-v1.0.8.zip' | sha256sum -c -
 python3 scripts/publishing/platform_legacy_overlay.py \
   --input /tmp/docsy-plugin-v1.0.8.zip \
+  --expected-version 1.0.8 \
+  --expected-sha256 b1278bfc589b97aba90d6b301e27359164711135936989659a8cec9aeae468d4 \
   --output /tmp/docsy-plugin-v1.0.8-openai-existing-app.zip
 ```
 
-The helper checks the original release contents and changes exactly one
-`mcp.json` URL. Never upload this compatibility variant for a **new** app;
+The helper verifies the input ZIP checksum, its immutable 1.0.8
+version and six-file allowlist, then changes exactly one `mcp.json` URL. Never upload this compatibility variant for a **new** app;
 new OpenAI submissions should use the canonical `/mcp/registry` URL.
 
 For personal ChatGPT use, creating and approving a custom MCP connection is an account-level action. It is **not** automatic just because Docsy appears in the official MCP Registry.
