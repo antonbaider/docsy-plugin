@@ -22,11 +22,11 @@ For the current verified status across publishing channels, see the [distributio
 
 ## Verified public MCP registry listings
 
-The **v1.0.9** brand-correction candidate uses the exact approved 2026 dark-theme mark, while v1.0.8 remains the latest published release until the candidate is tagged and validated.
+The **v1.0.9** public release uses the exact approved 2026 dark-theme mark; the release ZIP is reproducible from the Git tag and validated by Release Integrity CI.
 
-Staged release package: `/tmp/docsy-plugin-v1.0.9.zip` (run `python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.9.zip`). Once published, its real-response review recording will be at [v1.0.9 video](https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.9/docsy-review-walkthrough-v1.0.9.mp4); this URL is not live until the release is created.
+Build the release ZIP with `python3 scripts/publishing/package.py --output /tmp/docsy-plugin-v1.0.9.zip`. The validated [v1.0.9 real-response recording](https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.9/docsy-review-walkthrough-v1.0.9.mp4) is available alongside the ZIP.
 
-Docsy **1.0.8** is published as an active remote server in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=getremcp), registered as `io.github.getremcp/docsy`. The record references the organizational Streamable HTTP endpoint, `https://docsy.remcp.site/mcp/registry`, and this GitHub repository.
+Docsy **1.0.9** is published as an active remote server in the [official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers?search=getremcp), registered as `io.github.getremcp/docsy`. The record references the organizational Streamable HTTP endpoint, `https://docsy.remcp.site/mcp/registry`, and this GitHub repository.
 
 It is also available from the [Docsy listing on Smithery](https://smithery.ai/servers/getremcp/docsy), under `getremcp/docsy`. The Smithery publishing service accepted the release and discovered five MCP tools; directory health may be updated asynchronously.
 
