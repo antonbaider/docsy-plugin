@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "docsy",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Search current, version-aware developer documentation with original source links through a read-only remote MCP server.",
   "author": {
     "name": "Anton Baider",
@@ -97,11 +97,11 @@
           ]
         },
         "commerce": false,
-        "demo_recording_url": "https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.8/docsy-review-walkthrough-v1.0.8.mp4"
+        "demo_recording_url": "https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.9/docsy-review-walkthrough-v1.0.9.mp4"
       },
       "onboardingSkill": "./skills/find-docs/SKILL.md",
       "publication": {
-        "release_notes": "v1.0.8: Adopt the user-approved Docsy 2026 D-and-page-layer identity across ChatGPT composer icon, light/dark logos, and related brand colours. Keep all five public read-only MCP tools, source citations and canonical endpoint unchanged."
+        "release_notes": "v1.0.9: Correct the approved 2026 dark icon variant and lock the ChatGPT icon, bright/dark logos to the exact user-approved Brand Kit SHA-256 hashes. Same canonical read-only MCP, source-linked search and five public tools."
       }
     }
   }

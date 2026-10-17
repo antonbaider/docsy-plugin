@@ -16,14 +16,14 @@ class PluginPackageTests(unittest.TestCase):
         plugin=validate()
         self.assertEqual(plugin["name"],"docsy")
         self.assertEqual(plugin["license"],"MIT")
-        self.assertEqual(plugin["version"],"1.0.8")
+        self.assertEqual(plugin["version"],"1.0.9")
         self.assertEqual(plugin["author"]["name"],"Anton Baider")
         self.assertEqual(plugin["extensions"]["com.openai"]["interface"]["developerName"],"Anton Baider")
         self.assertNotIn("free",plugin["extensions"]["com.openai"]["interface"]["longDescription"].lower())
         review=plugin["extensions"]["com.openai"]["review"]
         self.assertEqual(len(review["test_cases"]["positive"]),5)
         self.assertEqual(len(review["test_cases"]["negative"]),3)
-        self.assertIn("plugin-v1.0.8",review["demo_recording_url"])
+        self.assertIn("plugin-v1.0.9",review["demo_recording_url"])
         self.assertTrue(review["demo_recording_url"].endswith(".mp4"))
         self.assertTrue(plugin["extensions"]["com.openai"]["publication"]["release_notes"])
 
@@ -35,7 +35,7 @@ class PluginPackageTests(unittest.TestCase):
         approved_sha256={
           "assets/docsy-icon-192.png":"886202fc3e31132696662c66294723e60299db2bdf9fc20df3a235198f41c729",
           "assets/docsy-logo-512.png":"2ca68715e0694bf0fad9c90704d4b6daffe3935b6b11c15f6c15e3269b5bd527",
-          "assets/docsy-logo-dark-512.png":"aa06e90810d851803c6da052dd7d96ab6c5024e0a62d799851d049468dc1fa67"
+          "assets/docsy-logo-dark-512.png":"7db3e3eaa227901e98f52114f6a32a07780547e606a54506989afdae60adfffc"
         }
         for name,expected in approved_sha256.items():
             self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),expected)
@@ -58,9 +58,14 @@ class PluginPackageTests(unittest.TestCase):
         status=(ROOT/"docs/DISTRIBUTION-STATUS.md").read_text()
         readme=(ROOT/"README.md").read_text()
         self.assertIn(f"GitHub Plugin v{version}",status)
-        self.assertIn(f"Active, latest v{version}",status)
         self.assertIn(f"The plugin package version is **v{version}**",status)
-        self.assertIn(f"Installable v{version}",status)
+        if f"| GitHub Plugin v{version} | **Published**" in status:
+            self.assertIn(f"Active, latest v{version}",status)
+            self.assertIn(f"Installable v{version}",status)
+        else:
+            self.assertIn(f"| GitHub Plugin v{version} | **Candidate",status)
+            self.assertIn("**Published**",status)
+            self.assertIn("Active, latest v",status)
         self.assertIn("Codex Git marketplace",status)
         self.assertIn(f"plugin-v{version}/docsy-review-walkthrough-v{version}.mp4",readme)
         self.assertIn(f"/tmp/docsy-plugin-v{version}.zip",readme)
