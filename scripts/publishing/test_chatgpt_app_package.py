@@ -29,6 +29,7 @@ class ChatGPTAppPackageTests(unittest.TestCase):
                 plugin = json.loads(archive.read("plugin.json"))
                 app = json.loads(archive.read(".app.json"))
                 self.assertEqual(plugin["extensions"]["com.openai"]["apps"], "./.app.json")
+                self.assertNotIn("review", plugin["extensions"]["com.openai"])
                 self.assertNotIn("requires_local_executor", plugin["extensions"]["com.openai"])
                 self.assertEqual(app["apps"]["docsy"], {"id": TEST_ID, "required": True})
 
