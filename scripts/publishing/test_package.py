@@ -89,6 +89,13 @@ class PluginPackageTests(unittest.TestCase):
         self.assertNotIn('fetch(base+"/mcp",',source)
         self.assertEqual(json.loads((ROOT/"mcp.json").read_text())["mcpServers"]["docsy"]["url"],SERVER)
 
+    def test_scheduled_smoke_checks_both_mcp_endpoints(self):
+        workflow=(ROOT/".github/workflows/plugin-quality.yml").read_text()
+        self.assertIn("- name: Verify canonical public MCP and legal pages", workflow)
+        self.assertIn("- name: Verify original OpenAI Platform MCP alias", workflow)
+        self.assertIn("DOCSY_MCP_URL: https://docsy.remcp.site/mcp\n", workflow)
+        self.assertEqual(workflow.count("run: node scripts/publishing/mcp-review-smoke.mjs"),2)
+
     def test_codex_marketplace_entry_is_rooted_and_complete(self):
         catalog=json.loads((ROOT/".agents/plugins/marketplace.json").read_text())
         self.assertEqual(catalog["name"],"docsy-community")
