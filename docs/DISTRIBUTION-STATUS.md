@@ -5,6 +5,7 @@ Last technical verification: 16 October 2026. **Listings, submissions, private i
 | Channel | Status | Evidence |
 | --- | --- | --- |
 | GitHub organization | **Published** | [getremcp/docsy-plugin](https://github.com/getremcp/docsy-plugin) |
+| GitHub Plugin v1.0.9 | **Candidate, not yet published** | Approved kit asset integrity fix; release ZIP pending review and tag. |
 | GitHub Plugin v1.0.8 | **Published** | [Release ZIP and demonstration](https://github.com/getremcp/docsy-plugin/releases/tag/plugin-v1.0.8) |
 | Official MCP Registry | **Active, latest v1.0.8 (verified via Registry API)** | [Registry query](https://registry.modelcontextprotocol.io/v0.1/servers?search=getremcp) / [OIDC publish run](https://github.com/getremcp/docsy-plugin/actions/runs/38953737055) |
 | Smithery | **Public listing** | [getremcp/docsy](https://smithery.ai/servers/getremcp/docsy) |
@@ -28,7 +29,7 @@ Last technical verification: 16 October 2026. **Listings, submissions, private i
 
 The GitHub repository contains the MIT-licensed plugin manifests and integration material. The operational crawler, database index and API backend are a **managed hosted service**, not distributed as an open-source self-hosted implementation in this repository.
 
-The plugin package version is **v1.0.8**; do not confuse it with the version string advertised by the hosted backend's MCP `serverInfo`, which may differ.
+The plugin package version is **v1.0.9** (release candidate; latest published is v1.0.8); do not confuse it with the version string advertised by the hosted backend's MCP `serverInfo`, which may differ.
 
 ### Original OpenAI Platform application
 
