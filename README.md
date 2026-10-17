@@ -1,5 +1,11 @@
 # Docsy Plugin
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/docsy-wordmark-inverse.svg" />
+  <img src="./assets/docsy-wordmark.svg" alt="Docsy" width="238" />
+</picture>
+
+
 Open-source plugin for current, source-linked developer documentation in
 **Claude, OpenAI/ChatGPT/Codex and Cursor**. It connects to the hosted
 read-only Streamable HTTP MCP endpoint:
