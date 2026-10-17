@@ -67,6 +67,9 @@ class PluginPackageTests(unittest.TestCase):
             self.assertIn("**Published**",status)
             self.assertIn("Active, latest v",status)
         self.assertIn("Codex Git marketplace",status)
+        self.assertIn("gh release download plugin-v1.0.8",status)
+        self.assertIn("b1278bfc589b97aba90d6b301e27359164711135936989659a8cec9aeae468d4",status)
+        self.assertNotIn("package.py --output /tmp/docsy-plugin-v1.0.8.zip",status)
         self.assertIn(f"plugin-v{version}/docsy-review-walkthrough-v{version}.mp4",readme)
         self.assertIn(f"/tmp/docsy-plugin-v{version}.zip",readme)
 
