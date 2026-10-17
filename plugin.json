@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "docsy",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Search current, version-aware developer documentation with original source links through a read-only remote MCP server.",
   "author": {
     "name": "Anton Baider",
@@ -37,8 +37,8 @@
           "Explain how Fastify handles request validation using source docs.",
           "Show the current documentation for a version of Next.js."
         ],
-        "brandColor": "#34623F",
-        "brandColorDark": "#D7FB86",
+        "brandColor": "#222623",
+        "brandColorDark": "#E8E5DC",
         "composerIcon": "./assets/docsy-icon-192.png",
         "logo": "./assets/docsy-logo-512.png",
         "logoDark": "./assets/docsy-logo-dark-512.png",
@@ -97,11 +97,11 @@
           ]
         },
         "commerce": false,
-        "demo_recording_url": "https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.7/docsy-review-walkthrough-v1.0.7.mp4"
+        "demo_recording_url": "https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.8/docsy-review-walkthrough-v1.0.8.mp4"
       },
       "onboardingSkill": "./skills/find-docs/SKILL.md",
       "publication": {
-        "release_notes": "v1.0.7: Align the OpenAI submission and personal Plugin Creator package with complete review scenarios, verified brand assets and source-linked documentation. Public MCP tool behavior, read-only access and existing client endpoints are unchanged."
+        "release_notes": "v1.0.8: Adopt the user-approved Docsy 2026 D-and-page-layer identity across ChatGPT composer icon, light/dark logos, and related brand colours. Keep all five public read-only MCP tools, source citations and canonical endpoint unchanged."
       }
     }
   }

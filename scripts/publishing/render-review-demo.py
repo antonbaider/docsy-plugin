@@ -14,12 +14,12 @@ from PIL import Image,ImageDraw,ImageFont
 
 ROOT=Path(__file__).resolve().parents[2]
 W,H=1280,720
-BG="#0e1712"
-SURFACE="#18241b"
-INK="#e8f3e6"
-MUTED="#9caf9e"
-LINE="#3b5340"
-ACCENT="#b6e881"
+BG="#222623"
+SURFACE="#2d332e"
+INK="#F9F7F0"
+MUTED="#bdbfb4"
+LINE="#62685d"
+ACCENT="#BA492F"
 FONT_DIR=Path("/usr/share/fonts/truetype/dejavu")
 def font(size,bold=False,mono=False):
     name=("DejaVuSansMono-Bold.ttf" if bold else "DejaVuSansMono.ttf") if mono else ("DejaVuSans-Bold.ttf" if bold else "DejaVuSans.ttf")
@@ -57,15 +57,15 @@ def render(scene,index,count,captured):
     image=Image.new("RGB",(W,H),BG)
     d=ImageDraw.Draw(image)
     # Atmospheric gridded field, no stock assets and no imitation of vendor UI.
-    for x in range(0,W,54):d.line((x,0,x,H),fill="#15241a",width=1)
-    for y in range(0,H,54):d.line((0,y,W,y),fill="#15241a",width=1)
-    d.rectangle((0,0,W,88),fill="#101d15")
+    for x in range(0,W,54):d.line((x,0,x,H),fill="#2a302b",width=1)
+    for y in range(0,H,54):d.line((0,y,W,y),fill="#2a302b",width=1)
+    d.rectangle((0,0,W,88),fill="#242a26")
     logo=Image.open(ROOT/"assets/docsy-icon-192.png").convert("RGBA")
     logo.thumbnail((42,42))
     image.paste(logo,(52,22),logo)
     d.text((104,28),"docsy",font=font(30,True),fill=INK)
     d.text((213,37),"/  PLUGIN REVIEW WALKTHROUGH",font=font(13,True,True),fill=MUTED)
-    rounded(d,(950,23,1227,63),"#263a25",r=14)
+    rounded(d,(950,23,1227,63),"#3a443b",r=14)
     d.ellipse((970,39,981,50),fill=ACCENT)
     d.text((995,35),"REAL LIVE MCP RESPONSES",font=font(13,True),fill=ACCENT)
     # vertical stepping nav
@@ -74,21 +74,21 @@ def render(scene,index,count,captured):
     for j,name in enumerate(labels):
         y=155+j*48
         active=j==index
-        if active:rounded(d,(43,y-7,250,y+34),"#29422a",r=10)
-        d.text((55,y),f"{j+1:02d}",font=font(18,True,True),fill=ACCENT if active else "#6d866e")
+        if active:rounded(d,(43,y-7,250,y+34),"#42483d",r=10)
+        d.text((55,y),f"{j+1:02d}",font=font(18,True,True),fill=ACCENT if active else "#b0ada2")
         d.text((92,y+2),name,font=font(15,True,True),fill=INK if active else MUTED)
     # right content
     rounded(d,(291,111,1226,604),SURFACE,outline=LINE,r=23)
     d.text((330,143),scene["tag"],font=font(18,True,True),fill=ACCENT)
     d.text((329,181),scene["title"],font=font(34,True),fill=INK)
     d.text((329,237),"MCP REQUEST",font=font(12,True,True),fill=MUTED)
-    rounded(d,(328,260,1190,321),"#0e1912",outline="#2d4931",r=11)
+    rounded(d,(328,260,1190,321),"#232b25",outline="#62685d",r=11)
     clip_text(d,scene["command"],345,276,827,font(15,False,True),ACCENT,max_lines=2,leading=8)
     d.text((329,340),"LIVE RESULT",font=font(12,True,True),fill=MUTED)
     y=372
     for line in scene["outputLines"][:6]:
         if y>558:break
-        d.ellipse((330,y+8,338,y+16),fill="#6aa866")
+        d.ellipse((330,y+8,338,y+16),fill="#BA492F")
         taken=clip_text(d,line,355,y,822,font(16,False,True),INK,max_lines=2,leading=6)
         y+=max(34,taken)+3
     # Lower separator/footer
