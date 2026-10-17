@@ -1,6 +1,6 @@
 # Docsy Directory Review Evidence (October 16, 2026)
 
-This v1.0.7 public review candidate includes a new capture of actual public MCP responses through the organization-owned /mcp/registry endpoint. No native client demonstration is implied.
+This v1.0.8 public review candidate includes a new capture of actual public MCP responses through the organization-owned /mcp/registry endpoint. No native client demonstration is implied.
 
 This document explains what is actually available, what each tool does, and
 what remains necessary for a verified publisher to submit Docsy to the
@@ -14,7 +14,7 @@ OpenAI, Claude, or Cursor directories.
 - Terms: https://docsy.remcp.site/terms
 - Support / public issues: https://docsy.remcp.site/support
 - Open-source plugin: https://github.com/getremcp/docsy-plugin
-- Public plugin ZIP: https://github.com/getremcp/docsy-plugin/releases/tag/plugin-v1.0.7
+- Public plugin ZIP: https://github.com/getremcp/docsy-plugin/releases/tag/plugin-v1.0.8
 - On-demand validation: `node scripts/publishing/mcp-review-smoke.mjs`
 - Automated release build: GitHub Actions → Public plugin quality.
 
@@ -26,7 +26,7 @@ separately from the open-source plugin; their code is not part of this package.
 
 ## Real demonstration recording
 
-The [public v1.0.7 review video](https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.7/docsy-review-walkthrough-v1.0.7.mp4) shows nine panels derived from **actual, timestamped
+The [public v1.0.8 review video](https://github.com/getremcp/docsy-plugin/releases/download/plugin-v1.0.8/docsy-review-walkthrough-v1.0.8.mp4) shows nine panels derived from **actual, timestamped
 JSON-RPC MCP calls** made on October 16, 2026. This is a visual walkthrough of
 live requests and sanitized metadata/results, not a claim to show the
 ChatGPT, Codex, Cursor or Claude user interface. It documents:
@@ -112,8 +112,8 @@ should be advertised until independently confirmed.
 
 ## Reproducibility and release provenance
 
-The canonical review-candidate package is the ZIP attached to the **v1.0.7**
+The canonical review-candidate package is the ZIP attached to the **v1.0.8**
 GitHub release. Rebuilding from the release tag must produce the same SHA-256
 as the downloadable asset. The earlier v1.0.3 ZIP had a mismatch caused by
-building from an uncommitted working tree; do not submit v1.0.3. The v1.0.7
+building from an uncommitted working tree; do not submit v1.0.3. The v1.0.8
 source and artifact are verified before release.
