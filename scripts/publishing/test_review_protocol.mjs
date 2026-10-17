@@ -8,6 +8,17 @@ test("decodes only matching JSON-RPC response IDs",()=>{
   assert.throws(()=>decodeRpc(s,6),/Missing matching/);
   assert.throws(()=>decodeRpc('{"jsonrpc":"2.0","id":3,"result":{}}',5),/Missing matching/);
 });
+test("handles comments, SSE heartbeats, multiline payloads and ignores unrelated requests",()=>{
+  const body=': ping\n\nevent: message\n'
+    +'data: {\n'
+    +'data:   "jsonrpc": "2.0",\n'
+    +'data:   "id": 22,\n'
+    +'data:   "result": {"ok": true}\n'
+    +'data: }\n\nevent: message\ndata: {"jsonrpc":"2.0","id":23,"result":{"ok":false}}\n\n';
+  assert.equal(decodeRpc(body,22).result.ok,true);
+  assert.equal(decodeRpc(body,23).result.ok,false);
+  assert.throws(()=>decodeRpc(body,24),/Missing matching/);
+});
 test("recognizes real unknown-tool and input-schema refusals",()=>{
   const err='data: {"jsonrpc":"2.0","id":8,"error":{"code":-32602,"message":"Tool unknown not found"}}\n';
   assert.match(requireToolRefusal(200,err,8,"unknown-tool"),/not found/);
