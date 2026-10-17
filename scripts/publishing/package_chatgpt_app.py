@@ -25,6 +25,9 @@ def build_app_package(output: Path, app_id: str) -> str:
     manifest = json.loads((ROOT / "plugin.json").read_text(encoding="utf-8"))
     extension = manifest.setdefault("extensions", {}).setdefault("com.openai", {})
     extension["apps"] = "./.app.json"
+    # App-backed personal packages are not public MCP review submissions.
+    # Review test cases require exactly one bundled MCP server and cause HTTP 400.
+    extension.pop("review", None)
     # A local-only declaration can override an eligible remote app mapping.
     extension.pop("requires_local_executor", None)
     manifest_bytes = (json.dumps(manifest, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
@@ -32,7 +35,8 @@ def build_app_package(output: Path, app_id: str) -> str:
         json.dumps({"apps": {"docsy": {"id": app_id, "required": True}}}, indent=2) + "\n"
     ).encode("utf-8")
 
-    # Local MCP files cause imported plugins to be classified as Desktop only.
+    # The app-backed variant deliberately omits separate MCP configurations.
+    # A remote HTTPS MCP manifest is not inherently a desktop-only server.
     sources = {
         p: (ROOT / p).read_bytes()
         for p in FILES

@@ -19,6 +19,7 @@ Last technical verification: 17 October 2026. **Listings, submissions, private i
 | mcp.tc | **Queued for human review** | [Docsy submission status](https://mcp.tc/s/dc7OMIJio-fn2yHv); endpoint detected, no public listing yet |
 | mcpub | **Registered; discoverable in public search** | [mcpub](https://mcpub.dev/): verified public MCP tools `submit`, `get` and `search` on 2026-10-16; Docsy registered under `https://docsy.remcp.site` |
 | OpenAI Plugin Directory | **In review: v1.0.8** | Submitted on 2026-10-16 in the verified individual publisher account; **not approved or published**. Review status is visible only in the signed-in OpenAI Platform dashboard. |
+| ChatGPT personal Docsy plugin | **Updated v1.0.14** | Personal app-backed configuration uploaded and verified through Plugin Creator on 2026-10-17; retains five skills and artwork. This is private and does **not** confer mobile availability or public directory approval. |
 | Official Claude Directory | **Not confirmed submitted** | Separate authenticated publisher review required |
 | Cursor Marketplace | **Submitted; awaiting Cursor review** | Publisher application accepted by [Cursor's official submission form](https://cursor.com/marketplace/publish) on 2026-10-16; the authenticated UI displayed “Thanks for applying”. **Not approved or publicly listed**. |
 | npm `@docsy/sdk` and `@docsy/cli` | **Not published** | npm scope-owner login / Trusted Publisher must be configured; do not claim npm distribution |
