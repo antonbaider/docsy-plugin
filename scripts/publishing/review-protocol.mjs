@@ -1,9 +1,13 @@
 /** Strict JSON-RPC response parsing for public MCP publication checks. */
 export function decodeRpc(body,id){
-  const events=body.split(/\r?\n/)
-    .filter(line=>line.startsWith("data:"))
-    .map(line=>JSON.parse(line.slice(5).trim()));
-  const messages=events.length?events:[JSON.parse(body)];
+  // SSE may include comments, heartbeat events, and multiple data lines
+  // per event. Never pair one request with another request's response.
+  const frames=body.split(/\r?\n\r?\n/);
+  const payloads=frames.map(frame=>frame.split(/\r?\n/)
+      .filter(line=>line.startsWith("data:"))
+      .map(line=>line.slice(5).trimStart()).join("\n"))
+    .filter(payload=>payload&&payload!=="[DONE]");
+  const messages=payloads.length?payloads.map(payload=>JSON.parse(payload)):[JSON.parse(body)];
   const response=messages.find(value=>value?.jsonrpc==="2.0"&&value.id===id);
   if(!response)throw new Error("Missing matching JSON-RPC response for request "+id);
   return response;

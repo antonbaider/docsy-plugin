@@ -1,21 +1,26 @@
 #!/usr/bin/env node
 // Capture only public documentation metadata from the live MCP; no credentials.
 import {writeFile} from 'node:fs/promises';
+import {decodeRpc} from "./review-protocol.mjs";
 
 const base=process.env.DOCSY_PUBLIC_URL??'https://docsy.remcp.site';
 const output=process.argv[2]??'/tmp/docsy-review-live-data.json';
 let id=0;
 const scenes=[];
-const headers={'Content-Type':'application/json','Accept':'application/json, text/event-stream','MCP-Protocol-Version':'2025-11-25'};
+let negotiatedProtocol=null;
+const requestHeaders=()=>({
+  'Content-Type':'application/json',
+  'Accept':'application/json, text/event-stream',
+  ...(negotiatedProtocol?{'MCP-Protocol-Version':negotiatedProtocol}:{})
+});
 const assert=(ok,message)=>{if(!ok)throw Error(message)};
 async function rpc(method,params={},allowError=false){
   const callId=++id;
-  const response=await fetch(base+'/mcp/registry',{method:'POST',headers,
+  const response=await fetch(base+'/mcp/registry',{method:'POST',headers:requestHeaders(),
     body:JSON.stringify({jsonrpc:'2.0',id:callId,method,params}),
     signal:AbortSignal.timeout(45000)});
   const raw=await response.text();
-  const events=raw.split(/\r?\n/).filter(l=>l.startsWith('data: ')).map(l=>JSON.parse(l.slice(6)));
-  const result=events.find(m=>m.id===callId)??(events.length?events[0]:JSON.parse(raw));
+  const result=decodeRpc(raw,callId);
   if(!allowError){
     assert(response.ok && result.result && !result.error,method+' failed');
   }
@@ -34,6 +39,15 @@ function add(tag,title,command,outputLines,caption){
 }
 const init=(await rpc('initialize',{protocolVersion:'2025-11-25',capabilities:{},
   clientInfo:{name:'docsy-plugin-review-demo',version:'1.0.0'}})).result;
+negotiatedProtocol=init.protocolVersion;
+assert(['2025-06-18','2025-11-25'].includes(negotiatedProtocol),
+  'unexpected negotiated MCP version');
+const initialized=await fetch(base+'/mcp/registry',{
+  method:'POST',headers:requestHeaders(),
+  body:JSON.stringify({jsonrpc:'2.0',method:'notifications/initialized'}),
+  signal:AbortSignal.timeout(15000)
+});
+assert(initialized.status===202,'MCP initialize notification failed');
 const defs=(await rpc('tools/list')).result.tools;
 assert(init.serverInfo?.name==='Docsy' && defs.length===5,'unexpected MCP contract');
 assert(defs.every(t=>t.annotations?.readOnlyHint===true),'tools must be read-only');
